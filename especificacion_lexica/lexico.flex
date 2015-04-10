@@ -40,6 +40,25 @@ identificador	= {letra}+
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
+
+"bool"      	{	if(debug) System.out.println("token BOOL");
+			return sf.newSymbol("BOOL",sym.BOOL);
+			}
+"void"      	{	if(debug) System.out.println("token VOID");
+			return sf.newSymbol("VOID",sym.VOID);
+			}			
+"int"           {   if(debug) System.out.println("token INT");
+			return sf.newSymbol("INT",sym.INT);
+			}
+"begin"         {   if(debug) System.out.println("token BEGIN");
+			return sf.newSymbol("BEGIN",sym.BEGIN);
+			}
+"and"           {   if(debug) System.out.println("token AND");
+			return sf.newSymbol("AND",sym.AND);
+			}
+"or"            {   if(debug) System.out.println("token OR");
+			return sf.newSymbol("OR",sym.OR);
+			}			
 "if"            {	if(debug) System.out.println("token IF");
 			return sf.newSymbol("IF",sym.IF);
 			}
@@ -58,6 +77,12 @@ espacio		= [ \t]+
 "until"         {	if(debug) System.out.println("token UNTIL");
 			return sf.newSymbol("UNTIL",sym.UNTIL);
 			}
+"for"      		{	if(debug) System.out.println("token FOR");
+			return sf.newSymbol("FOR",sym.FOR);
+			}
+"return"		{	if(debug) System.out.println("token RETURN");
+			return sf.newSymbol("RETURN",sym.RETURN);
+			}		
 "read"          {	if(debug) System.out.println("token READ");
 			return sf.newSymbol("READ",sym.READ);
 			}
@@ -73,27 +98,43 @@ espacio		= [ \t]+
 "<"             {	if(debug) System.out.println("token LT");
 			return sf.newSymbol("LT",sym.LT);
 			}
-"+"             {	if(debug) System.out.println("token PLUS");
+">"             {   if(debug) System.out.println("token RT");
+			return sf.newSymbol("RT",sym.RT);
+			}
+"<="             {	if(debug) System.out.println("token LE");
+			return sf.newSymbol("LE",sym.LE);
+			}
+">="        	 {	if(debug) System.out.println("token RE");
+			return sf.newSymbol("RE",sym.RE);
+			}
+"!="        	 {	if(debug) System.out.println("token NEQ");
+			return sf.newSymbol("NEQ",sym.NEQ);
+			}									
+"+"              {	if(debug) System.out.println("token PLUS");
 			return sf.newSymbol("PLUS",sym.PLUS);
 			}
-"-"             {	if(debug) System.out.println("token MINUS");
+"-"              {	if(debug) System.out.println("token MINUS");
 			return sf.newSymbol("MINUS",sym.MINUS);
 			}
-"*"             {	if(debug) System.out.println("token TIMES");
+"*"              {	if(debug) System.out.println("token TIMES");
 			return sf.newSymbol("TIMES",sym.TIMES);
 			}
-"/"             {	if(debug) System.out.println("token OVER");
+"/"              {	if(debug) System.out.println("token OVER");
 			return sf.newSymbol("OVER",sym.OVER);
 			}
-"("             {	if(debug) System.out.println("token LPAREN");
+"("              {	if(debug) System.out.println("token LPAREN");
 			return sf.newSymbol("LPAREN",sym.LPAREN);
 			}
-")"             {	if(debug) System.out.println("token RPAREN");
+")"              {	if(debug) System.out.println("token RPAREN");
 			return sf.newSymbol("RPAREN",sym.RPAREN);
 			}
-";"             {	if(debug) System.out.println("token SEMI");
+";"              {	if(debug) System.out.println("token SEMI");
 			return sf.newSymbol("SEMI",sym.SEMI);
 			}
+","         	 { if(debug) System.out.println("token COMA");
+			return sf.newSymbol("COMA",sym.COMA);
+            }
+
 {numero}        {	if(debug) System.out.println("token NUM");
 			return sf.newSymbol("NUM",sym.NUM,new Integer(yytext()));
 			}
