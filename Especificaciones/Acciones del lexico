@@ -10,10 +10,10 @@ Analizador lexico
 	and
 	or
 	return
-	!=
-	>
-	>=
-	<=
+	!= Ya
+	>  YA
+	>= YA
+	<= YA
 	- (negativo)
 	
 - Generar el lexico
