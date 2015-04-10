@@ -40,7 +40,7 @@ identificador	= {letra}+
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
-"if"            {	if(debug) System.out.println("token IF");
+"if"        {	if(debug) System.out.println("token IF");
 			return sf.newSymbol("IF",sym.IF);
 			}
 "then"          { if(debug) System.out.println("token THEN");
@@ -58,7 +58,7 @@ espacio		= [ \t]+
 "until"         {	if(debug) System.out.println("token UNTIL");
 			return sf.newSymbol("UNTIL",sym.UNTIL);
 			}
-"for"         {	if(debug) System.out.println("token FOR");
+"for"       {	if(debug) System.out.println("token FOR");
 			return sf.newSymbol("FOR",sym.FOR);
 			}
 "read"          {	if(debug) System.out.println("token READ");
