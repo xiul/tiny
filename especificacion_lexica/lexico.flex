@@ -33,7 +33,7 @@ import java_cup.runtime.*;
 
 
 
-digito		= [0-9]
+digito		= -?[0-9] 
 numero		= {digito}+
 letra			= [a-zA-Z]
 identificador	= {letra}+
@@ -86,13 +86,13 @@ espacio		= [ \t]+
 			return sf.newSymbol("LT",sym.LT);
 			}
 ">"             {   if(debug) System.out.println("token GT");
-			return sf.newSymbol("RT",sym.GT);
+			return sf.newSymbol("GT",sym.GT);
 			}
 "<="             {	if(debug) System.out.println("token LE");
 			return sf.newSymbol("LE",sym.LE);
 			}
 ">="        {	if(debug) System.out.println("token GE");
-			return sf.newSymbol("RE",sym.GE);
+			return sf.newSymbol("GE",sym.GE);
 			}
 "!="        {	if(debug) System.out.println("token NEQ");
 			return sf.newSymbol("NEQ",sym.NEQ);

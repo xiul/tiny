@@ -33,7 +33,7 @@ public class sym {
   public static final int RT = 21;
   public static final int RETURN = 22;
   public static final int NEQ = 23;
-  public static final int RE = 24;
+  public static final int GE = 24;
   public static final int BOOL = 23;
   public static final int COMA = 24;
   public static final int VOID = 25;
