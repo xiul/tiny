@@ -106,6 +106,10 @@ espacio		= [ \t]+
 ";"             {	if(debug) System.out.println("token SEMI");
 			return sf.newSymbol("SEMI",sym.SEMI);
 			}
+","         { if(debug) System.out.println("token COMA");
+			return sf.newSymbol("COMA",sym.COMA);
+            }
+
 {numero}        {	if(debug) System.out.println("token NUM");
 			return sf.newSymbol("NUM",sym.NUM,new Integer(yytext()));
 			}
