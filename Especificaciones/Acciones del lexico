@@ -9,6 +9,7 @@ Analizador lexico
 	begin
 	and
 	or
+	return
 	!=
 	>
 	>=
