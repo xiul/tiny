@@ -1,0 +1,18 @@
+Analizador lexico
+
+- Agregar las palabras reservadas
+	for (ya)
+	bool
+	int
+	void
+	function
+	begin
+	and
+	or
+	!=
+	>
+	>=
+	<=
+	- (negativo)
+	
+- Generar el lexico
