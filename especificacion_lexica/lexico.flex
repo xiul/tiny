@@ -40,6 +40,12 @@ identificador	= {letra}+
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
+"bool"      {	if(debug) System.out.println("token BOOL");
+			return sf.newSymbol("BOOL",sym.BOOL);
+			}
+"void"      {	if(debug) System.out.println("token VOID");
+			return sf.newSymbol("VOID",sym.VOID);
+			}			
 "if"        {	if(debug) System.out.println("token IF");
 			return sf.newSymbol("IF",sym.IF);
 			}
@@ -61,6 +67,9 @@ espacio		= [ \t]+
 "for"       {	if(debug) System.out.println("token FOR");
 			return sf.newSymbol("FOR",sym.FOR);
 			}
+"return"	{	if(debug) System.out.println("token RETURN");
+			return sf.newSymbol("RETURN",sym.RETURN);
+			}		
 "read"          {	if(debug) System.out.println("token READ");
 			return sf.newSymbol("READ",sym.READ);
 			}
