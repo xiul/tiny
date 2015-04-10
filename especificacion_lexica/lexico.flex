@@ -85,14 +85,14 @@ espacio		= [ \t]+
 "<"             {	if(debug) System.out.println("token LT");
 			return sf.newSymbol("LT",sym.LT);
 			}
-">"             {   if(debug) System.out.println("token RT");
-			return sf.newSymbol("RT",sym.RT);
+">"             {   if(debug) System.out.println("token GT");
+			return sf.newSymbol("RT",sym.GT);
 			}
 "<="             {	if(debug) System.out.println("token LE");
 			return sf.newSymbol("LE",sym.LE);
 			}
-">="        {	if(debug) System.out.println("token RE");
-			return sf.newSymbol("RE",sym.RE);
+">="        {	if(debug) System.out.println("token GE");
+			return sf.newSymbol("RE",sym.GE);
 			}
 "!="        {	if(debug) System.out.println("token NEQ");
 			return sf.newSymbol("NEQ",sym.NEQ);
