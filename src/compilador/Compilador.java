@@ -14,6 +14,7 @@ public class Compilador {
 	public static void main(String[] args) throws Exception {
 		@SuppressWarnings("deprecation")
 		SymbolFactory sf = new DefaultSymbolFactory();
+		int i;
 		parser parser_obj;
 		if (args.length==0) 
 			parser_obj=new parser(new Scanner(System.in,sf),sf);
