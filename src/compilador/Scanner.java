@@ -632,7 +632,6 @@ class Scanner implements java_cup.runtime.Scanner {
           { /* salto comentarios */ if(debug) System.out.println("token COMENTARIO");
           }
         case 39: break;
-
         case 32: 
           { if(debug) System.out.println("token RETURN");
 			return sf.newSymbol("RETURN",sym.RETURN);
