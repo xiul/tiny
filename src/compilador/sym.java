@@ -31,5 +31,16 @@ public class sym {
   public static final int ASSIGN = 12;
   public static final int EQ = 13;
   public static final int REPEAT = 6;
+  public static final int VECTOR = 22;
+  public static final int TRUE= 23;
+  public static final int FALSE = 24;
+  public static final int AND= 25;
+  public static final int OR= 26;
+  public static final int MENORIGUAL = 27;
+  public static final int FOR = 28;
+  public static final int MAYORIGUAL= 29;
+  public static final int DIFERENTE = 30;
+  public static final int BT = 31;
+  
 }
 

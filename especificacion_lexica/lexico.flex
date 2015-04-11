@@ -37,6 +37,7 @@ digito		= [0-9]
 numero		= {digito}+
 letra			= [a-zA-Z]
 identificador	= {letra}+
+vector		= {identificador}\[[0-9]+\]
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
@@ -52,6 +53,7 @@ espacio		= [ \t]+
 "end"           {	if(debug) System.out.println("token END");
 			return sf.newSymbol("END",sym.END);
 			}
+
 "repeat"        {	if(debug) System.out.println("token REPEAT");
 			return sf.newSymbol("REPEAT",sym.REPEAT);
 			}
@@ -67,14 +69,34 @@ espacio		= [ \t]+
 ":="            {	if(debug) System.out.println("token ASSIGN");
 			return sf.newSymbol("ASSIGN",sym.ASSIGN);
 			}
+"!="            { 	if(debug) System.out.println("DIFERENTE");
+			return sf.newSymbol("DIFERENTE",sym.DIFERENTE);
+			}
 "="             {	if(debug) System.out.println("token EQ");
 			return sf.newSymbol("EQ",sym.EQ);
+			}
+">"             { 	if(debug) System.out.println("token BT");
+			return sf.newSymbol("BT",sym.BT);
 			}
 "<"             {	if(debug) System.out.println("token LT");
 			return sf.newSymbol("LT",sym.LT);
 			}
+
+">="            { 	if(debug) System.out.println("token MAYORIGUAL");
+			return sf.newSymbol("MAYORIGUAL",sym.MAYORIGUAL);
+			}
+"<="            { 	if(debug) System.out.println("token MENORIGUAL");
+			return sf.newSymbol("MENORIGUAL",sym.MENORIGUAL);
+			}
+
 "+"             {	if(debug) System.out.println("token PLUS");
 			return sf.newSymbol("PLUS",sym.PLUS);
+			}
+"and"           {	if(debug) System.out.println("token AND");
+			return sf.newSymbol("AND",sym.AND);
+			}
+"or"            {	if(debug) System.out.println("token OR");
+			return sf.newSymbol("OR",sym.OR);
 			}
 "-"             {	if(debug) System.out.println("token MINUS");
 			return sf.newSymbol("MINUS",sym.MINUS);
@@ -94,11 +116,25 @@ espacio		= [ \t]+
 ";"             {	if(debug) System.out.println("token SEMI");
 			return sf.newSymbol("SEMI",sym.SEMI);
 			}
+"for"			{	if(debug) System.out.println("token FOR");
+			return sf.newSymbol("FOR",sym.FOR);
+			}
+"true"		{	if(debug) System.out.println("token TRUE");
+			return sf.newSymbol("TRUE",sym.TRUE);
+			}
+
+"false" 		{	if(debug) System.out.println("token FALSE");
+			return sf.newSymbol("FALSE",sym.FALSE);
+			}
+
 {numero}        {	if(debug) System.out.println("token NUM");
 			return sf.newSymbol("NUM",sym.NUM,new Integer(yytext()));
 			}
 {identificador}	{	if(debug) System.out.println("token ID");
 				return sf.newSymbol("ID",sym.ID,new String(yytext()));
+			}
+{vector}	{	if(debug) System.out.println("token VECTOR");
+				return sf.newSymbol("VECTOR",sym.VECTOR,new String(yytext()));
 			}
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}
