@@ -2,18 +2,18 @@ Analizador lexico
 
 - Agregar las palabras reservadas
 	for (ya)
-	bool
-	int
-	void
-	function
-	begin
-	and
-	or
-	return
-	!= Ya
-	>  YA
-	>= YA
-	<= YA
-	- (negativo)
-	
+	bool (ya)
+	int (ya)
+	void (ya)
+	function (ya)
+	begin (ya)
+	and (ya)
+	or (ya)
+	return (ya)
+	!= (ya)
+	> (ya)
+	>= (ya)
+	<= (ya)
+	- (negativo) (falta)
+
 - Generar el lexico

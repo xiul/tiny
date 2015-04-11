@@ -51,6 +51,19 @@ terminal OVER;
 terminal LPAREN;
 terminal RPAREN;
 terminal SEMI;
+<<<<<<< HEAD
+=======
+terminal BOOL;
+terminal VOID;
+terminal RETURN;
+terminal GT;
+terminal GE;
+terminal NEQ;
+terminal COMA;
+
+
+
+>>>>>>> 52e42e1903f7730f411d1fa1da72f5c367ceaaab
 /* Simbolos No Terminales */
 non terminal program;
 non terminal NodoBase stmt_seq;
@@ -127,6 +140,10 @@ repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba	{: if(modoDepuracion) Sy
 							RESULT = new NodoRepeat(cuerpo,prueba);
 							:}
 		;
+
+for_stmt	::=	FOR LPAREN assing_stmt:as COMA exp:ex COMA simple_exp:se  RPAREN stmt_seq:cuerpo END {: if(modoDepuracion) System.out.println("\t regla 5"); 
+							RESULT = new NodoRepeat(as,ex,se,cuerpo);
+							:}
 
 assign_stmt ::= ID:variable 	{: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
 				/*lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
