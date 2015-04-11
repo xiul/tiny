@@ -33,14 +33,13 @@ import java_cup.runtime.*;
 
 
 
-digito		= [0-9]
+digito		= -?[0-9] 
 numero		= {digito}+
 letra			= [a-zA-Z]
 identificador	= {letra}+
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
-
 "bool"      	{	if(debug) System.out.println("token BOOL");
 			return sf.newSymbol("BOOL",sym.BOOL);
 			}
@@ -98,19 +97,19 @@ espacio		= [ \t]+
 "<"             {	if(debug) System.out.println("token LT");
 			return sf.newSymbol("LT",sym.LT);
 			}
-">"             {   if(debug) System.out.println("token RT");
-			return sf.newSymbol("RT",sym.RT);
+">"             {   if(debug) System.out.println("token GT");
+			return sf.newSymbol("GT",sym.GT);
 			}
 "<="             {	if(debug) System.out.println("token LE");
 			return sf.newSymbol("LE",sym.LE);
 			}
-">="        	 {	if(debug) System.out.println("token RE");
-			return sf.newSymbol("RE",sym.RE);
+">="        	{	if(debug) System.out.println("token GE");
+			return sf.newSymbol("GE",sym.GE);
 			}
-"!="        	 {	if(debug) System.out.println("token NEQ");
+"!="        	{	if(debug) System.out.println("token NEQ");
 			return sf.newSymbol("NEQ",sym.NEQ);
 			}									
-"+"              {	if(debug) System.out.println("token PLUS");
+"+"             {	if(debug) System.out.println("token PLUS");
 			return sf.newSymbol("PLUS",sym.PLUS);
 			}
 "-"              {	if(debug) System.out.println("token MINUS");
@@ -134,7 +133,6 @@ espacio		= [ \t]+
 ","         	 { if(debug) System.out.println("token COMA");
 			return sf.newSymbol("COMA",sym.COMA);
             }
-
 {numero}        {	if(debug) System.out.println("token NUM");
 			return sf.newSymbol("NUM",sym.NUM,new Integer(yytext()));
 			}

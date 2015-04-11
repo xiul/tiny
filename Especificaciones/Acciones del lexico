@@ -15,5 +15,5 @@ Analizador lexico
 	>= (ya)
 	<= (ya)
 	- (negativo) (falta)
-	
+
 - Generar el lexico
