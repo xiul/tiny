@@ -41,6 +41,6 @@ public class sym {
   public static final int MAYORIGUAL= 29;
   public static final int DIFERENTE = 30;
   public static final int BT = 31;
-  
+  public static final int COLON = 32;
 }
 
