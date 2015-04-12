@@ -1,5 +1,5 @@
 package compilador;
-//todo
+//bien
 import java_cup.runtime.*;
 import ast.*;
 
