@@ -21,7 +21,9 @@ terminal VOID;
 terminal INT;
 terminal BEGIN;
 terminal AND;
+terminal FUNCTION;
 terminal OR;
+terminal RETURN;
 terminal COMA;
 terminal IF;
 terminal THEN;
@@ -30,7 +32,6 @@ terminal END;
 terminal REPEAT;
 terminal UNTIL;
 terminal FOR;
-terminal RETURN;
 terminal READ;
 terminal WRITE;
 terminal String ID;
@@ -51,25 +52,19 @@ terminal OVER;
 terminal LPAREN;
 terminal RPAREN;
 terminal SEMI;
-<<<<<<< HEAD
-=======
-terminal BOOL;
-terminal VOID;
-terminal RETURN;
-terminal GT;
-terminal GE;
-terminal NEQ;
-terminal COMA;
-
-
-
->>>>>>> 52e42e1903f7730f411d1fa1da72f5c367ceaaab
 /* Simbolos No Terminales */
 non terminal program;
+non terminal NodoBase start_block;
+non terminal NodoBase start_principal;
 non terminal NodoBase stmt_seq;
+non terminal NodoBase func_stmt;
+non terminal NodoBase arg_stmt;
+non terminal NodoBase cont_void;
+non terminal NodoBase cont_type;
 non terminal NodoBase stmt;
 non terminal NodoBase if_stmt;
 non terminal NodoBase repeat_stmt;
+non terminal NodoBase for_stmt;
 non terminal NodoBase assign_stmt;
 non terminal NodoBase read_stmt;
 non terminal NodoBase write_stmt;
@@ -78,33 +73,83 @@ non terminal NodoBase simple_exp;
 non terminal NodoBase term;
 non terminal NodoBase factor;
 
+non terminal NodoBase dec;
+non terminal NodoBase type_stmt;
+non terminal NodoBase numNeg;
 /* Precedencia de operadores */
 precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
-
+precedence left OVER;
 
 /* REGLAS GRAMATICALES */
-program     ::= stmt_seq:s	{: if(modoDepuracion) System.out.println("\t regla 1"); 
+program     ::=  start_block:s	{:System.out.println("\t regla 1"); 
 					ast = s;
 					:}
 		;
-
-stmt_seq    ::= stmt_seq:ini SEMI stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2a"); 
-						NodoBase hijoActual = ini;
-						if(hijoActual !=null){
-							while(hijoActual.TieneHermano()){
-								hijoActual = hijoActual.getHermanoDerecha();
-							}
-							hijoActual.setHermanoDerecha(sent);
-							RESULT=ini;
-						}else{
-							RESULT=sent;
-						}
-						:}
-            | stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2b"); 
-				RESULT=sent;				
+start_block	::=  func_stmt:s start_block 
+				{:System.out.println("\t Una o mas Funciones");
 				:}
+				| start_principal 
+				{:System.out.println("\t ir a el bloque principal");
+				:}			
+			;
+start_principal ::= BEGIN stmt_seq:s END	
+				{: System.out.println("\t Bloque principal");
+				:}
+			;	
+func_stmt 	::= VOID FUNCTION ID LPAREN RPAREN 
+				cont_void
+				{: if(modoDepuracion) System.out.println("\t funcion VOID sin parametros"); 
+					:}
+				|BOOL FUNCTION ID LPAREN RPAREN
+				cont_type
+				{: if(modoDepuracion) System.out.println("\t funcion BOOL sin parametros"); 
+					:}
+				|INT FUNCTION ID LPAREN RPAREN 
+				cont_type
+				{: if(modoDepuracion) System.out.println("\t funcion INT sin parametros"); 
+					:}
+				|VOID FUNCTION ID LPAREN arg_stmt RPAREN 
+				cont_void
+				{: if(modoDepuracion) System.out.println("\t funcion VOID con parametros"); 
+					:}
+				|BOOL FUNCTION ID LPAREN arg_stmt RPAREN 
+				cont_type
+				{: if(modoDepuracion) System.out.println("\t funcion BOOL con parametros"); 
+					:}
+				|INT FUNCTION ID LPAREN arg_stmt RPAREN 
+				cont_type
+				{: if(modoDepuracion) System.out.println("\t funcion INT con parametros"); 
+					:}
+		;
+cont_void	::= BEGIN 
+					stmt_seq
+				END
+				|BEGIN 
+				END
+			;
+cont_type	::= BEGIN 
+					stmt_seq
+					RETURN simple_exp SEMI
+				END
+				|BEGIN 
+					RETURN simple_exp SEMI
+				END
+			;			
+arg_stmt	::= BOOL ID COMA arg_stmt 
+				{: if(modoDepuracion) System.out.println("\t Argumento 1"); 
+					:}
+				| INT ID COMA arg_stmt
+				{: if(modoDepuracion) System.out.println("\t Argumento 2"); 
+					:}
+				| INT ID
+				{: if(modoDepuracion) System.out.println("\t Argumento 3"); 
+					:}
+				| BOOL ID
+				{: if(modoDepuracion) System.out.println("\t Argumento 4"); 
+				RESULT=sent;				
+					:}
 		;
 
 stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
@@ -112,6 +157,9 @@ stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3
 					:}
             | repeat_stmt:srep	{: if(modoDepuracion) System.out.println("\t regla 3b"); 
 						RESULT=srep;
+						:}
+			| for_stmt:sfor	{: if(modoDepuracion) System.out.println("\t regla 3b.1"); 
+						RESULT=sfor;
 						:}
             | assign_stmt:sasi	{: if(modoDepuracion) System.out.println("\t regla 3c"); 
 						RESULT=sasi;
@@ -122,7 +170,10 @@ stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3
             | write_stmt:sesc	{: if(modoDepuracion) System.out.println("\t regla 3e"); 
 					RESULT=sesc;
 					:}
-            | error	{: if(modoDepuracion) System.out.println("\t regla 3f"); 
+			| type_stmt:styp	{: if(modoDepuracion) System.out.println("\t regla 3f"); 
+						RESULT=styp;
+						:}
+            | error	{: if(modoDepuracion) System.out.println("\t regla 3g"); 
 				System.out.println("Ocurrio error en cup # 0004");
 				RESULT=null;
 				:}
@@ -136,20 +187,24 @@ if_stmt     ::= IF exp:ex THEN stmt_seq:pthen END	{: if(modoDepuracion) System.o
 		:}
 		;
 
-repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba	{: if(modoDepuracion) System.out.println("\t regla 5"); 
+repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba SEMI {: if(modoDepuracion) System.out.println("\t regla 5"); 
 							RESULT = new NodoRepeat(cuerpo,prueba);
 							:}
 		;
 
-for_stmt	::=	FOR LPAREN assing_stmt:as COMA exp:ex COMA simple_exp:se  RPAREN stmt_seq:cuerpo END {: if(modoDepuracion) System.out.println("\t regla 5"); 
-							RESULT = new NodoRepeat(as,ex,se,cuerpo);
+for_stmt	::=	FOR LPAREN assign_stmt:as SEMI exp:ex SEMI assign_stmt:se  RPAREN
+					stmt_seq:cont
+				END
+				{: if(modoDepuracion) System.out.println("\t regla FOR"); 
+							RESULT = new NodoFor(as,ex,se,cont);
 							:}
+							;
 
-assign_stmt ::= ID:variable 	{: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
+assign_stmt ::= ID:variable {: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
 				/*lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
 				String nombre = variable.getName();*/
 				:}
-			ASSIGN exp:ex	{: if(modoDepuracion) System.out.println("\t regla 6 parte final");
+			ASSIGN exp:ex	SEMI	{: if(modoDepuracion) System.out.println("\t regla 6 parte final");
 					if(variable!=null)
 					RESULT = new NodoAsignacion(variable.toString(),ex);
 					else{
@@ -159,7 +214,7 @@ assign_stmt ::= ID:variable 	{: if(modoDepuracion) System.out.println("\t regla 
 					:}
 		;
 
-read_stmt   ::= READ ID:variable	{: if(modoDepuracion) System.out.println("\t regla 7"); 
+read_stmt   ::= READ ID:variable SEMI	{: if(modoDepuracion) System.out.println("\t regla 7"); 
 					System.out.println("Leyendo Variable");
 					if(variable!=null)
 					RESULT = new NodoLeer(variable.toString());
@@ -170,10 +225,21 @@ read_stmt   ::= READ ID:variable	{: if(modoDepuracion) System.out.println("\t re
 					:}
 		;
 
-write_stmt  ::= WRITE exp:ex	{: if(modoDepuracion) System.out.println("\t regla 8"); 
+write_stmt  ::= WRITE exp:ex SEMI	{: if(modoDepuracion) System.out.println("\t regla 8"); 
 				       	RESULT= new NodoEscribir(ex);
 					:}
 		;
+
+type_stmt  ::= INT dec:di SEMI {: if(modoDepuracion) System.out.println("\t regla 8x"); 
+				       	System.out.println("\t tipo INT");
+				       	/*RESULT= new NodoEscribir(dec);*/
+				:}
+				| BOOL dec:db SEMI {: if(modoDepuracion) System.out.println("\t regla 8x"); 
+				       	System.out.println("\t tipo BOOL");
+				       	/*RESULT= new NodoEscribir(dc);*/
+					:}		
+		;
+
 
 exp         ::= simple_exp:exI LT simple_exp:exD{:
              		if(modoDepuracion) System.out.println("\t regla 9a"); 
@@ -254,6 +320,10 @@ factor      ::= LPAREN exp:ex RPAREN	{: if(modoDepuracion) System.out.println("\
 						System.out.println("Ocurrio error en cup # 0005");
 					}
 					:}
+		| numNeg {: if(modoDepuracion) System.out.println("\t regla 12a"); 
+							System.out.println("numNeg");
+							/*RESULT = ex;*/
+							:}
 		| error	{: if(modoDepuracion) System.out.println("\t regla 12d"); 
 				System.out.println("Ocurrio error en cup # 0003");
 				RESULT=null;
