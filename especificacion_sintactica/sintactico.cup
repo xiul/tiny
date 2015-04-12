@@ -1,5 +1,5 @@
 package compilador;
-
+//todo
 import java_cup.runtime.*;
 import ast.*;
 
@@ -61,7 +61,6 @@ non terminal NodoBase func_stmt;
 non terminal NodoBase arg_stmt;
 non terminal NodoBase cont_void;
 non terminal NodoBase cont_type;
-non terminal NodoBase stmt;
 non terminal NodoBase if_stmt;
 non terminal NodoBase repeat_stmt;
 non terminal NodoBase for_stmt;
@@ -72,7 +71,7 @@ non terminal NodoBase exp;
 non terminal NodoBase simple_exp;
 non terminal NodoBase term;
 non terminal NodoBase factor;
-
+non terminal NodoBase for_assign;
 non terminal NodoBase dec;
 non terminal NodoBase type_stmt;
 non terminal NodoBase numNeg;
@@ -83,10 +82,11 @@ precedence left TIMES;
 precedence left OVER;
 
 /* REGLAS GRAMATICALES */
+
 program     ::=  start_block:s	{:System.out.println("\t regla 1"); 
 					ast = s;
 					:}
-		;
+			;
 start_block	::=  func_stmt:s start_block 
 				{:System.out.println("\t Una o mas Funciones");
 				:}
@@ -148,11 +148,11 @@ arg_stmt	::= BOOL ID COMA arg_stmt
 					:}
 				| BOOL ID
 				{: if(modoDepuracion) System.out.println("\t Argumento 4"); 
-				RESULT=sent;				
 					:}
 		;
 
-stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
+
+stmt_seq        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
 					RESULT=sif;
 					:}
             | repeat_stmt:srep	{: if(modoDepuracion) System.out.println("\t regla 3b"); 
@@ -192,13 +192,26 @@ repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba SEMI {: if(modoDepuracio
 							:}
 		;
 
-for_stmt	::=	FOR LPAREN assign_stmt:as SEMI exp:ex SEMI assign_stmt:se  RPAREN
+for_stmt	::=	FOR LPAREN for_assign:as SEMI exp:ex SEMI for_assign:se  RPAREN
 					stmt_seq:cont
 				END
 				{: if(modoDepuracion) System.out.println("\t regla FOR"); 
 							RESULT = new NodoFor(as,ex,se,cont);
 							:}
 							;
+for_assign	::=	ID:variable {: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
+				/*lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
+				String nombre = variable.getName();*/
+				:}
+			ASSIGN exp:ex	{: if(modoDepuracion) System.out.println("\t regla 6 parte final");
+					if(variable!=null)
+					RESULT = new NodoAsignacion(variable.toString(),ex);
+					else{
+					RESULT = null;
+					System.out.println("Ocurrio error en cup # 0001");
+					}
+					:}
+		;
 
 assign_stmt ::= ID:variable {: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
 				/*lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
@@ -238,6 +251,17 @@ type_stmt  ::= INT dec:di SEMI {: if(modoDepuracion) System.out.println("\t regl
 				       	System.out.println("\t tipo BOOL");
 				       	/*RESULT= new NodoEscribir(dc);*/
 					:}		
+		;
+
+dec        ::= ID COMA dec:exD	{: if(modoDepuracion) System.out.println("\t regla 11a"); 
+							System.out.println("\t dec"); 
+							/*RESULT = new NodoOperacion(exI,tipoOp.por,exD);*/
+							:}
+            | ID	
+            {: if(modoDepuracion) System.out.println("\t regla 11c"); 
+	        /*RESULT=ex;*/
+	        System.out.println("\t ID"); 
+	        :}
 		;
 
 
@@ -328,4 +352,10 @@ factor      ::= LPAREN exp:ex RPAREN	{: if(modoDepuracion) System.out.println("\
 				System.out.println("Ocurrio error en cup # 0003");
 				RESULT=null;
 				:}
+		;
+
+numNeg     	::= MINUS factor:exD	{: if(modoDepuracion) System.out.println("\t regla 11a"); 
+							System.out.println("\t negativo"); 
+							/*RESULT = new NodoOperacion(exI,tipoOp.por,exD);*/
+							:}
 		;

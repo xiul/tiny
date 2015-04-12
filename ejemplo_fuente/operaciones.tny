@@ -1,1 +1,12 @@
-write 1+2*3
+bool function nueva (int ala, bool vc) 
+begin
+	for (i:=0;x<10 ;x:=x+2 ) 
+		
+		  write fact;
+		
+	end
+ return x;
+end
+begin
+	read x; 
+end
