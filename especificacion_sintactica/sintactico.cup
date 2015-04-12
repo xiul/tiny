@@ -57,6 +57,7 @@ non terminal program;
 non terminal NodoBase start_block;
 non terminal NodoBase start_principal;
 non terminal NodoBase stmt_seq;
+non terminal NodoBase stmt;
 non terminal NodoBase func_stmt;
 non terminal NodoBase arg_stmt;
 non terminal NodoBase cont_void;
@@ -151,8 +152,26 @@ arg_stmt	::= BOOL ID COMA arg_stmt
 					:}
 		;
 
+stmt_seq    ::= stmt_seq:ini stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2a"); 
+						NodoBase hijoActual = ini;
+						if(hijoActual !=null){
+							while(hijoActual.TieneHermano()){
+								hijoActual = hijoActual.getHermanoDerecha();
+							}
+							hijoActual.setHermanoDerecha(sent);
+							RESULT=ini;
+						}else{
+							RESULT=sent;
+						}
+						:}
+            | stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2b"); 
+				RESULT=sent;				
+				:}
+		;
 
-stmt_seq        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
+
+
+stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
 					RESULT=sif;
 					:}
             | repeat_stmt:srep	{: if(modoDepuracion) System.out.println("\t regla 3b"); 
