@@ -31,7 +31,7 @@ public class sym {
   public static final int ASSIGN = 12;
   public static final int EQ = 13;
   public static final int REPEAT = 6;
-  public static final int VECTOR = 22;
+  public static final int LCORCHETE = 22;
   public static final int TRUE= 23;
   public static final int FALSE = 24;
   public static final int AND= 25;
@@ -42,5 +42,6 @@ public class sym {
   public static final int DIFERENTE = 30;
   public static final int BT = 31;
   public static final int COLON = 32;
+  public static final int RCORCHETE = 32;
 }
 

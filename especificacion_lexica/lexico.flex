@@ -37,7 +37,6 @@ digito		= [0-9]
 numero		= {digito}+
 letra			= [a-zA-Z]
 identificador	= {letra}+
-vector		= {identificador}\[[0-9]+\]
 nuevalinea		= \n | \n\r | \r\n
 espacio		= [ \t]+
 %%
@@ -113,6 +112,12 @@ espacio		= [ \t]+
 ")"             {	if(debug) System.out.println("token RPAREN");
 			return sf.newSymbol("RPAREN",sym.RPAREN);
 			}
+"["             {	if(debug) System.out.println("token LCORCHETE");
+			return sf.newSymbol("LCORCHETE",sym.LCORCHETE);
+			}
+"]"             {	if(debug) System.out.println("token RCORCHETE");
+			return sf.newSymbol("RCORCHETE",sym.RCORCHETE);
+			}			
 ";"             {	if(debug) System.out.println("token SEMI");
 			return sf.newSymbol("SEMI",sym.SEMI);
 			}
@@ -135,9 +140,6 @@ espacio		= [ \t]+
 			}
 {identificador}	{	if(debug) System.out.println("token ID");
 				return sf.newSymbol("ID",sym.ID,new String(yytext()));
-			}
-{vector}	{	if(debug) System.out.println("token VECTOR");
-				return sf.newSymbol("VECTOR",sym.VECTOR,new String(yytext()));
 			}
 {nuevalinea}       {lineanum++;}
 {espacio}    { /* saltos espacios en blanco*/}
