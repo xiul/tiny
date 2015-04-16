@@ -1,9 +1,7 @@
 package ast;
 
-<<<<<<< HEAD
-public class NodoVector {
 
-=======
+
 public class NodoVector extends NodoBase {
 
 	private String variable;
@@ -38,7 +36,5 @@ public class NodoVector extends NodoBase {
 	public void setNumero(NodoBase numero) {
 		this.numero = numero;
 	}
-	
-	
->>>>>>> 216956c6ac6eccf3b888d1ad2cb2f445601dbf2f
+
 }
