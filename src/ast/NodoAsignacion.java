@@ -28,6 +28,8 @@ public class NodoAsignacion extends NodoBase {
 		return expresion;
 	}
 
+  
+  
 	public void setExpresion(NodoBase expresion) {
 		this.expresion = expresion;
 	}
