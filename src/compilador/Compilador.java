@@ -11,9 +11,11 @@ public class Compilador {
 	Mas informacion en: http//4thmouse.com/index.php/2007/02/15/using-custom-symbols-in-cup/
 	***********/
 
+
 	public static void main(String[] args) throws Exception {
 		@SuppressWarnings("deprecation")
 		SymbolFactory sf = new DefaultSymbolFactory();
+		int i;
 		parser parser_obj;
 		if (args.length==0) 
 			parser_obj=new parser(new Scanner(System.in,sf),sf);
