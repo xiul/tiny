@@ -14,18 +14,20 @@ import ast.NodoRepeat;
 public class TablaSimbolos {
 	private HashMap<String, RegistroSimbolo> tabla;
 	private int direccion;  //Contador de las localidades de memoria asignadas a la tabla
-	
+	private int ambitoLocal;
+        
 	public TablaSimbolos() {
 		super();
 		tabla = new HashMap<String, RegistroSimbolo>();
 		direccion=0;
+                ambitoLocal = 0;
 	}
 
 	public void cargarTabla(NodoBase raiz){
 		while (raiz != null) {
 	    if (raiz instanceof NodoIdentificador){
 	    	InsertarSimbolo(((NodoIdentificador)raiz).getNombre(),-1);
-	    	//TODO: Añadir el numero de linea y localidad de memoria correcta
+	    	//TODO: Aï¿½adir el numero de linea y localidad de memoria correcta
 	    }
 
 	    /* Hago el recorrido recursivo */
@@ -58,7 +60,7 @@ public class TablaSimbolos {
 		if(tabla.containsKey(identificador)){
 			return false;
 		}else{
-			simbolo= new RegistroSimbolo(identificador,numLinea,direccion++);
+			simbolo= new RegistroSimbolo(identificador,numLinea,direccion++,ambitoLocal);
 			tabla.put(identificador,simbolo);
 			return true;			
 		}
