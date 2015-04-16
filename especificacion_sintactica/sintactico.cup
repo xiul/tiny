@@ -29,13 +29,25 @@ terminal Integer NUM;
 terminal ASSIGN;
 terminal EQ;
 terminal LT;
+terminal BT;
+terminal MAYORIGUAL;
+terminal MENORIGUAL;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
 terminal OVER;
 terminal LPAREN;
 terminal RPAREN;
+terminal LCORCHETE;
+terminal RCORCHETE;
 terminal SEMI;
+terminal FOR;
+terminal DIFERENTE;
+terminal AND;
+terminal OR;
+terminal COLON;
+terminal TRUE;
+terminal FALSE;
 
 /* Simbolos No Terminales */
 non terminal program;
@@ -52,9 +64,15 @@ non terminal NodoBase term;
 non terminal NodoBase factor;
 
 /* Precedencia de operadores */
+precedence left OR;
+precedence left AND;
+precedence left EQ,LT,BT,MAYORIGUAL,MENORIGUAL,DIFERENTE;
 precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
+precedence left OVER;
+precedence left LCORCHETE,RCORCHETE;
+precedence left LPARENT, RPARENT;
 
 
 /* REGLAS GRAMATICALES */
