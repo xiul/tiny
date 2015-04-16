@@ -31,6 +31,23 @@ public class NodoFuncion extends NodoBase {
 	public void setIdentificador(NodoBase prueba) {
 		this.identificador = prueba;
 	}
+	
+	
+	public NodoBase getOperacion() {
+		return operacion;
+	}
+
+	public void setOperacion(NodoBase operacion) {
+		this.operacion = operacion;
+	}
+	
+	public NodoBase getCuerpo() {
+		return cuerpo;
+	}
+
+	public void setCuerpo(NodoBase cuerpo) {
+		this.cuerpo = cuerpo;
+	}
 
 
 	
