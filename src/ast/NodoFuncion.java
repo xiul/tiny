@@ -33,10 +33,6 @@ public class NodoFuncion extends NodoBase {
 	}
 
 
-	public void setParteElse(NodoBase parteElse) {
-		this.parteElse = parteElse;
-	}
-	
 	
 	
 }
