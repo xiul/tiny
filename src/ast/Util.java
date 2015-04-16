@@ -85,8 +85,6 @@ public class Util {
 		    	System.out.println("**VECTOR de "+((NodoVector)raiz).getVariable()+"[]");
 		    	imprimirAST(((NodoVector)raiz).getNumero());
 		    }
-
-
 		    raiz = raiz.getHermanoDerecha();
 		  }
 		  sangria-=2;
@@ -104,7 +102,9 @@ static void imprimirNodo( NodoBase raiz )
 {
 	if(	raiz instanceof NodoRepeat
 		||	raiz instanceof NodoLeer
-		||	raiz instanceof NodoEscribir  ){
+		||	raiz instanceof NodoEscribir 
+		||  raiz instanceof NodoFor)
+		{
 		System.out.println("palabra reservada: "+ raiz.getClass().getName());
 	}
 	
@@ -145,6 +145,9 @@ static void imprimirNodo( NodoBase raiz )
 
 	if(	raiz instanceof NodoIdentificador ){
 		System.out.println("ID, nombre= "+ ((NodoIdentificador)raiz).getNombre());
+	}
+	if(raiz instanceof NodoVector){
+		System.out.println("Variable "+((NodoVector)raiz).getVariable());
 	}
 
 }
