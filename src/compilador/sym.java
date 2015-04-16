@@ -42,6 +42,10 @@ public class sym {
   public static final int DIFERENTE = 30;
   public static final int BT = 31;
   public static final int COLON = 32;
-  public static final int RCORCHETE = 32;
+  public static final int RCORCHETE = 33;
+  public static final int VOID = 34;
+  public static final int INT = 35;
+  public static final int BOOLEAN = 36;
+  public static final int RETURN = 37;
 }
 
