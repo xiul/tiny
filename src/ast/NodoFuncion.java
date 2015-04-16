@@ -4,13 +4,13 @@ public class NodoFuncion extends NodoBase {
 
 	private NodoBase identificador;
 	private NodoBase operacion;
-	private String cuerpo;
+	private NodoBase cuerpo;
 	
-	public NodoFuncion(NodoBase identificador, NodoBase operacion, String cuerpo) {
+	public NodoFuncion(NodoBase identificador, NodoBase operacion, NodoBase cuerpo) {
 		super();
 		this.identificador = identificador;
 		this.operacion = operacion;
-		this.cuerpo = cuerpo
+		this.cuerpo = cuerpo;
 	}
 	
 
