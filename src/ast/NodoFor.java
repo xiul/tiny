@@ -1,6 +1,6 @@
 package ast;
 
-public class NodoFor {
+public class NodoFor  extends NodoBase{
     private String variable;
 	private NodoBase asig;
     private NodoBase comprob;
@@ -16,7 +16,6 @@ public class NodoFor {
         this.paso = paso;
         this.cuerpo = cuerpo;
     }
-	
 	public String getVariable() {
 		return variable;
 	}

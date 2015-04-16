@@ -1,13 +1,10 @@
 package ast;
 
-
-
 public class NodoVector extends NodoBase {
 
 	private String variable;
 	private NodoBase numero;
 
-	
 	public NodoVector(String variable,NodoBase numero) {
 		super();
 		this.variable = variable;
