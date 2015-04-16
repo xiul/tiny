@@ -17,15 +17,19 @@ public class NodoFuncion extends NodoBase {
 	
 	public NodoFuncion() {
 		super();
+		this.identificador= null;
+		this.operacion= null;
+		this.cuerpo= null;
+		
 			
 	}
 
-	public NodoBase getPrueba() {
-		return prueba;
+	public NodoBase getIdentificador() {
+		return identificador;
 	}
 
-	public void setPrueba(NodoBase prueba) {
-		this.prueba = prueba;
+	public void setIdentificador(NodoBase prueba) {
+		this.identificador = prueba;
 	}
 
 
