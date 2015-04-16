@@ -51,16 +51,30 @@ terminal FALSE;
 
 /* Simbolos No Terminales */
 non terminal program;
+non terminal NodoBase function-list;
+non terminal NodoBase function-stmt;
+non terminal NodoBase tipo;
+non terminal NodoBase body;
 non terminal NodoBase stmt_seq;
 non terminal NodoBase stmt;
+non terminal NodoBase return;
+non terminal NodoBase call-stmt;
+non terminal NodoBase procedure-stmt;
+non terminal NodoBase param-list;
 non terminal NodoBase if_stmt;
+non terminal NodoBase for;
 non terminal NodoBase repeat_stmt;
 non terminal NodoBase assign_stmt;
 non terminal NodoBase read_stmt;
 non terminal NodoBase write_stmt;
+non terminal NodoBase exp2;
+non terminal NodoBase coparison-log;
 non terminal NodoBase exp;
+non terminal NodoBase coparison-op;
 non terminal NodoBase simple_exp;
+non terminal NodoBase addop;
 non terminal NodoBase term;
+non terminal NodoBase mulop;
 non terminal NodoBase factor;
 
 /* Precedencia de operadores */
