@@ -2,7 +2,6 @@ package compilador;
 
 import java_cup.runtime.*;
 
-
 %%
 /* Habilitar la compatibilidad con el interfaz CUP para el generador sintactico*/
 %cup
@@ -31,8 +30,6 @@ import java_cup.runtime.*;
 %line
 %column
 
-
-
 digito		= [0-9]
 numero		= [-]?{digito}+
 letra			= [a-zA-Z]
@@ -52,7 +49,6 @@ espacio		= [ \t]+
 "end"           {	if(debug) System.out.println("token END");
 			return sf.newSymbol("END",sym.END);
 			}
-
 "repeat"        {	if(debug) System.out.println("token REPEAT");
 			return sf.newSymbol("REPEAT",sym.REPEAT);
 			}
@@ -77,22 +73,18 @@ espacio		= [ \t]+
 "true"		{	if(debug) System.out.println("token TRUE");
 			return sf.newSymbol("TRUE",sym.TRUE);
 			}
-
 "false" 		{	if(debug) System.out.println("token FALSE");
 			return sf.newSymbol("FALSE",sym.FALSE);
 			}
 "void"      	{	if(debug) System.out.println("token VOID");
 			return sf.newSymbol("VOID",sym.VOID);
 			}
-
 "int"      	{	if(debug) System.out.println("token INT");
 			return sf.newSymbol("INT",sym.INT);
 			}
-
 "boolean"      	{	if(debug) System.out.println("token BOOLEAN");
 			return sf.newSymbol("BOOLEAN",sym.BOOLEAN);
 			}
-
 "return"      	{	if(debug) System.out.println("token RETURN");
 			return sf.newSymbol("RETURN",sym.RETURN);
 			}						
@@ -117,7 +109,6 @@ espacio		= [ \t]+
 "<="            { 	if(debug) System.out.println("token MENORIGUAL");
 			return sf.newSymbol("MENORIGUAL",sym.MENORIGUAL);
 			}
-
 "+"             {	if(debug) System.out.println("token PLUS");
 			return sf.newSymbol("PLUS",sym.PLUS);
 			}

@@ -19,6 +19,7 @@ action code {:
 terminal IF;
 terminal THEN;
 terminal ELSE;
+terminal BEGIN;
 terminal END;
 terminal REPEAT;
 terminal UNTIL;
@@ -48,42 +49,33 @@ terminal OR;
 terminal COLON;
 terminal TRUE;
 terminal FALSE;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/master
+terminal RETURN;
+terminal VOID;
+terminal INT;
+terminal BOOL;
 
 /* Simbolos No Terminales */
 non terminal program;
-non terminal NodoBase function-list;
-<<<<<<< HEAD
-non terminal NodoBase function-stmt ;
-=======
-non terminal NodoBase function-stmt;
->>>>>>> origin/master
-non terminal NodoBase tipo;
-non terminal NodoBase body;
+non terminal NodoBase function_list;
+non terminal NodoBase function_stmt;
 non terminal NodoBase stmt_seq;
 non terminal NodoBase stmt;
-non terminal NodoBase return;
-non terminal NodoBase call-stmt;
-non terminal NodoBase procedure-stmt;
-non terminal NodoBase param-list;
+non terminal NodoBase call_stmt;
+non terminal NodoBase procedure_stmt;
+non terminal NodoBase body;
+non terminal NodoBase param_list;
+non terminal NodoBase param_list2;
+non terminal NodoBase for_stmt;
 non terminal NodoBase if_stmt;
-non terminal NodoBase for;
 non terminal NodoBase repeat_stmt;
 non terminal NodoBase assign_stmt;
 non terminal NodoBase read_stmt;
 non terminal NodoBase write_stmt;
+non terminal NodoBase exp3;
 non terminal NodoBase exp2;
-non terminal NodoBase coparison-log;
 non terminal NodoBase exp;
-non terminal NodoBase coparison-op;
 non terminal NodoBase simple_exp;
-non terminal NodoBase addop;
 non terminal NodoBase term;
-non terminal NodoBase mulop;
 non terminal NodoBase factor;
 
 
@@ -95,160 +87,423 @@ precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left OVER;
-<<<<<<< HEAD
 precedence left LCORCHETE, RCORCHETE;
-precedence left LPARENT, RPARENT;
-
-
-=======
+precedence left LPAREN, RPAREN;
 precedence left LCORCHETE,RCORCHETE;
-precedence left LPARENT, RPARENT;
->>>>>>> origin/master
-
+precedence left LPAREN, RPAREN;
 
 /* REGLAS GRAMATICALES */
-program     ::= stmt_seq:s	{: if(modoDepuracion) System.out.println("\t regla 1"); 
-					ast = s;
-					:}
-		;
 
-stmt_seq    ::= stmt_seq:ini SEMI stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2a"); 
-						NodoBase hijoActual = ini;
-						if(hijoActual !=null){
-							while(hijoActual.TieneHermano()){
-								hijoActual = hijoActual.getHermanoDerecha();
-							}
-							hijoActual.setHermanoDerecha(sent);
-							RESULT=ini;
-						}else{
-							RESULT=sent;
-						}
-						:}
-            | stmt:sent	{: if(modoDepuracion) System.out.println("\t regla 2b"); 
-				RESULT=sent;				
-				:}
-		;
-
-stmt        ::= if_stmt:sif	{: if(modoDepuracion) System.out.println("\t regla 3a"); 
-					RESULT=sif;
-					:}
-            | repeat_stmt:srep	{: if(modoDepuracion) System.out.println("\t regla 3b"); 
-						RESULT=srep;
-						:}
-            | assign_stmt:sasi	{: if(modoDepuracion) System.out.println("\t regla 3c"); 
-						RESULT=sasi;
-						:}
-            | read_stmt:slec	{: if(modoDepuracion) System.out.println("\t regla 3d"); 
-					RESULT=slec;
-					:}
-            | write_stmt:sesc	{: if(modoDepuracion) System.out.println("\t regla 3e"); 
-					RESULT=sesc;
-					:}
-            | error	{: if(modoDepuracion) System.out.println("\t regla 3f"); 
-				System.out.println("Ocurrio error en cup # 0004");
-				RESULT=null;
-				:}
-            ;
-
-if_stmt     ::= IF exp:ex THEN stmt_seq:pthen END	{: if(modoDepuracion) System.out.println("\t regla 4a"); 
-		RESULT = new NodoIf(ex,pthen);
+program
+	::= function_list:ini body:pbody
+		{:
+			ast = pbody;		
 		:}
-		| IF exp:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END	{: if(modoDepuracion) System.out.println("\t regla 4b"); 
-		RESULT = new NodoIf(ex,pthen,pelse);		
+	;
+
+function_stmt
+	::=	VOID ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
 		:}
-		;
+	|	INT  ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
+		:}	
+	|	BOOL ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
+		:}	
+	;
 
-repeat_stmt ::= REPEAT stmt_seq:cuerpo UNTIL exp:prueba	{: if(modoDepuracion) System.out.println("\t regla 5"); 
-							RESULT = new NodoRepeat(cuerpo,prueba);
-							:}
-		;
+function_list
+	::=	function_list:ini function_stmt:fest
+		{:
+			NodoBase hijoActual = ini;
+			if(hijoActual!=null)
+			{
+				while(hijoActual.TieneHermano())
+				{
+					hijoActual = hijoActual.getHermanoDerecha();
+				}
+				hijoActual.setHermanoDerecha(fest);
+				RESULT=ini;
+			}else
+			{
+				RESULT=fest;
+			}		
+		:}
+	|	function_stmt:fest
+		{:
+			RESULT = fest;					
+		:}	
+	|
+		{:
+			RESULT = null;		
+		:}	
+	;	
 
-assign_stmt ::= ID:variable 	{: if(modoDepuracion) System.out.println("\t regla 6 parte del medio"); 
-				/*lineanum=1000; //Pasar/Obtener la linea correcta por el Simbolo
-				String nombre = variable.getName();*/
-				:}
-			ASSIGN exp:ex	{: if(modoDepuracion) System.out.println("\t regla 6 parte final");
-					if(variable!=null)
-					RESULT = new NodoAsignacion(variable.toString(),ex);
-					else{
-					RESULT = null;
-					System.out.println("Ocurrio error en cup # 0001");
-					}
-					:}
-		;
+stmt_seq
+	::= stmt_seq:ini COLON stmt:sent SEMI
+		{:
+			NodoBase hijoActual = ini;
+			if(hijoActual!=null)
+			{
+				while(hijoActual.TieneHermano())
+				{
+					hijoActual = hijoActual.getHermanoDerecha();
+				}
+				hijoActual.setHermanoDerecha(sent);
+				RESULT=ini;
+			}else
+			{
+				RESULT=sent;
+			}		
+		:}
+	|	stmt:sent
+		{:
+			RESULT = sent;		
+		:}
+	|
+		{:
+			RESULT = null;		
+		:}		
+	;
 
-read_stmt   ::= READ ID:variable	{: if(modoDepuracion) System.out.println("\t regla 7"); 
-					System.out.println("Leyendo Variable");
-					if(variable!=null)
-					RESULT = new NodoLeer(variable.toString());
-					else{
-					RESULT = null;
-					System.out.println("Ocurrio error en cup # 0002");
-					}
-					:}
-		;
+stmt
+	::= if_stmt:sif
+		{:
+			RESULT = sif;		
+		:}
+	|	repeat_stmt:srep
+		{:
+			RESULT = srep;		
+		:}	
+	|	assign_stmt:sasi
+		{:
+			RESULT = sasi;		
+		:}	
+	|	read_stmt:slec
+		{:
+			RESULT = slec;		
+		:}	
+	|	write_stmt:sesc
+		{:
+			RESULT = sesc;		
+		:}	
+	|	for_stmt:sfor
+		{:
+			RESULT = sfor;		
+		:}	
+	|	procedure_stmt:sproc
+		{:
+			RESULT = sproc;		
+		:}	
+	|	call_stmt:scall
+		{:
+			RESULT = scall;		
+		:}	
+	|	RETURN simple_exp:sexp
+		{:
+			if(sexp!=null)
+			{
+				RESULT = new sexp;		
+			}else
+			{
+				RESULT = null;		
+			}		
+		:}	
+	|	RETURN TRUE
+		{:
+			RESULT = TRUE;		
+		:}		
+	|	RETURN FALSE
+		{:
+			RESULT = FALSE;		
+		:}			
+	|	error
+		{:
+			RESULT = null;		
+		:}
+	;	
 
-write_stmt  ::= WRITE exp:ex	{: if(modoDepuracion) System.out.println("\t regla 8"); 
-					RESULT= new NodoEscribir(ex);
-					:}
-		;
+call_stmt 
+	::= ID:variable LPAREN param_list:ini RPAREN
+		{:
+			if(variable!=null)
+			{
+				RESULT = new NodoLLamada(variable,ini);		
+			}else
+			{
+				RESULT = null;		
+			}		
+		:}
+	|	ID:variable1 EQ ID:variable2 LPAREN param_list:ini RPAREN
+		{:
+			if(variable!=null)
+			{
+				RESULT = new NodoLLamada(variable1,variable2,ini);		
+			}else
+			{
+				RESULT = null;		
+			}		
+		:}	
+	;
 
-exp         ::= simple_exp:exI LT simple_exp:exD	{: if(modoDepuracion) System.out.println("\t regla 9a"); 
-								RESULT = new NodoOperacion(exI,tipoOp.menor,exD);
-								:} 
-		| simple_exp:exI EQ simple_exp:exD	{: if(modoDepuracion) System.out.println("\t regla 9b"); 
-							RESULT = new NodoOperacion(exI,tipoOp.igual,exD);
-							:}
-		| simple_exp:ex	{: if(modoDepuracion) System.out.println("\t regla 9c"); 
-					RESULT = ex;
-					:}
-		;
+procedure_stmt
+	::= VOID ID:variable LPAREN param_list2:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoProcedimiento(variable,ini,pbody);		
+		:}
+	|	INT  ID:variable LPAREN param_list2:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoProcedimiento(variable,ini,pbody);		
+		:}
+	|	BOOL ID:variable LPAREN param_list2:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoProcedimiento(variable,ini,pbody);		
+		:}		
+	;
 
-simple_exp  ::= simple_exp:exI PLUS term:exD	{: if(modoDepuracion) System.out.println("\t regla 10a"); 
-							RESULT = new NodoOperacion(exI,tipoOp.mas,exD);
-							:}
-		| simple_exp:exI MINUS term:exD	{: if(modoDepuracion) System.out.println("\t regla 10b"); 
-							RESULT = new NodoOperacion(exI,tipoOp.menos,exD);
-							:}
-		| term:ex	{: if(modoDepuracion) System.out.println("\t regla 10c"); 
+body
+	::= BEGIN stmt_seq:pbody END
+		{:
+			RESULT = pbody;		
+		:}
+	;
+
+param_list
+	::= param_list:ini COLON INT ID:variable
+		{:	
+			NodoBase hijoActual = ini;
+			if(hijoActual!=null)
+			{
+				while(hijoActual.TieneHermano())
+				{
+					hijoActual = hijoActual.getHermanoDerecha();
+				}
+				hijoActual.setHermanoDerecha(variable);
+				RESULT=ini;
+			}else
+			{
+				RESULT=variable;
+			}		
+		:}
+	|	INT ID:variable
+		{:
+			if(variable!=null)
+			{
+				RESULT= new NodoIdentificador(variable.toString());			
+			}else
+			{
+				RESULT = null;		
+			}		
+		:}	
+	|  
+		{:
+			RESULT = null;		
+		:}
+	;	
+	
+param_list2
+	::= param_list2:ini COLON exp:ex
+		{:	
+			NodoBase hijoActual = ini;
+			if(hijoActual!=null)
+			{
+				while(hijoActual.TieneHermano())
+				{
+					hijoActual = hijoActual.getHermanoDerecha();
+				}
+				hijoActual.setHermanoDerecha(ex);
+				RESULT=ini;
+			}else
+			{
 				RESULT=ex;
-				:}
-		;
+			}		
+		:}
+	|	exp:ex
+		{:
+			RESULT = ex;		
+		:}	
+	|  
+		{:
+			RESULT = null;		
+		:}
+	;	
 
-term        ::= term:exI TIMES factor:exD	{: if(modoDepuracion) System.out.println("\t regla 11a"); 
-							RESULT = new NodoOperacion(exI,tipoOp.por,exD);
-							:}
-		| term:exI OVER factor:exD	{: if(modoDepuracion) System.out.println("\t regla 11b"); 
-						RESULT = new NodoOperacion(exI,tipoOp.entre,exD);
-						:}
-		| factor:ex	{: if(modoDepuracion) System.out.println("\t regla 11c"); 
-					RESULT=ex;
-					:}
-		;
+for_stmt
+	::= FOR LPAREN assign_stmt:pasig SEMI exp:pcomprob SEMI assign_stmt:ppaso RPAREN stmt_seq:pcuerpo END
+		{:
+			RESULT = new NodoFor(pasig,pcomprob,ppaso,pcuerpo);		
+		:}
+	;	
 
-factor      ::= LPAREN exp:ex RPAREN	{: if(modoDepuracion) System.out.println("\t regla 12a"); 
-							RESULT = ex;
-							:}
-		| NUM:valor	{: if(modoDepuracion) System.out.println("\t regla 12b"); 
-					System.out.println("Devolvi nodo numero entero");
-					if(valor!=null){
-						RESULT= new NodoValor(valor);					
-					}else{
-						RESULT = null;
-						System.out.println("Ocurrio error en cup # 0005");
-					}
-					:}
-		| ID:variable	{: if(modoDepuracion) System.out.println("\t regla 12c"); 
-					if(variable!=null){
-						System.out.println("Construyendo Nodo ID para Lexema: "+ variable.toString());
-						RESULT= new NodoIdentificador(variable.toString());		
-					}else{
-						RESULT = null;
-						System.out.println("Ocurrio error en cup # 0005");
-					}
-					:}
-		| error	{: if(modoDepuracion) System.out.println("\t regla 12d"); 
-				System.out.println("Ocurrio error en cup # 0003");
-				RESULT=null;
-				:}
-		;
+if_stmt
+	::= IF exp2:ex THEN stmt_seq:pthen END
+		{:
+			RESULT = new NodoIf(ex,pthen);		
+		:}
+	|	IF exp2:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END
+		{:
+			RESULT = new NodoIf(ex,pthen,pelse);		
+		:}	
+	;
+
+repeat_stmt
+	::= REPEAT stmt_seq:exI UNTIL exp3:exD
+		{:
+			RESULT = new NodoRepeat(exI,exD);		
+		:}
+	;
+
+assign_stmt
+	::= ID:variable ASSIGN exp3:ex
+		{:
+			if(variable!=null)
+			{
+				RESULT = new NodoAsignacion(variable.toString(),ex);							
+			}else
+			{
+				RESULT = null;			
+			}		
+		:}
+	; 
+
+read_stmt
+	::= READ ID:variable
+		{:
+			if(variable!=null)
+			{
+				RESULT= new NodoLeer(variable.toString());			
+			}else
+			{
+				RESULT = null;			
+			} 		
+		:}
+	;
+
+write_stmt
+	::=	WRITE exp3:ex
+		{:
+			RESULT = new NodoEscribir(ex);		
+		:}
+	;
+
+exp3
+	::= exp3:exI OR  exp2:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.or,exD);		
+		:}
+	|	exp3:exI AND exp2:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.and,exD);		
+		:}	
+	|	exp2:ex
+		{:
+			RESULT = ex;		
+		:}
+	;	
+
+exp2
+	::= exp2:exI EQ 		exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.igual,exD);		
+		:}
+	|	exp2:exI DIFERENTE  exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.diferente,exD);		
+		:}	
+	|	exp:ex
+		{:
+			RESULT = ex;
+		:}
+	;
+
+exp
+	::= simple_exp:exI LT	 	  simple_exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.menor,exD);		
+		:}	
+	|	simple_exp:exI BT 		  simple_exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.mayor,exD);		
+		:}	
+	|	simple_exp:exI MENORIGUAL simple_exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.menorigual,exD);		
+		:}	
+	|	simple_exp:exI MAYORIGUAL simple_exp:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.mayorigual,exD);		
+		:}					
+	|	simple_exp:ex
+		{:
+			RESULT = ex;		
+		:}
+	;	
+
+simple_exp
+	::= simple_exp:exI PLUS  term:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.mas,exD);		
+		:}
+	|  	simple_exp:exI MINUS term:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.menos,exD);		
+		:}		
+	|	term:ex
+		{:
+			RESULT = ex;		
+		:}
+	;	
+		
+term
+	::= term:exI TIMES factor:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.por,exD);
+		:}		
+	|	term:exI OVER  factor:exD
+		{:
+			RESULT = new NodoOperacion(exI,tipoOp.entre,exD);		
+		:}		
+	|	factor:ex
+		{:
+			RESULT = ex;		
+		:} 
+	;	
+		
+factor
+	::= LPAREN exp:e RPAREN
+		{:
+			RESULT = e;
+		:}	
+	|	NUM:valor
+		{:
+			if(valor!=null)
+			{
+				RESULT = new NodoValor(valor);			
+			}else
+			{
+				RESULT = null;		
+			}	
+		:}
+	|	ID:variable
+		{:
+			if(variable!=null)
+			{
+				RESULT= new NodoIdentificador(variable.toString());			
+			}else
+			{
+				RESULT = null;		
+			}	
+		:}
+	| ID:variable LCORCHETE simple_exp:e RCORCHETE 
+		{:
+			RESULT = new NodoVector(variable,e);
+		:} 		
+	| error
+		{:
+			RESULT = null;
+		:}
+	;
