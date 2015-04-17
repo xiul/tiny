@@ -6,7 +6,7 @@ public class NodoFor  extends NodoBase{
 	private NodoBase paso;
     private NodoBase cuerpo;
 	
-	public NodoFor(String variable, NodoBase asig, NodoBase comprob,NodoBase paso,NodoBase cuerpo){
+	public NodoFor(NodoBase asig, NodoBase comprob,NodoBase paso,NodoBase cuerpo){
 
         super();
         this.asig = asig;

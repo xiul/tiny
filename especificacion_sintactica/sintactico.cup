@@ -96,24 +96,24 @@ precedence left LPAREN, RPAREN;
 
 program
 	::= function_list:ini body:pbody
-		{:
-			ast = pbody;		
+		{:		
+			NodoBase hijoActual = ini;
+			
+			ast = hijoActual;
+						
+			if(hijoActual!=null)
+			{
+				while(hijoActual.TieneHermano())
+				{
+					hijoActual = hijoActual.getHermanoDerecha();
+				} 
+				hijoActual.setHermanoDerecha(pbody);
+				RESULT=ini;
+			}else
+			{
+				ast = pbody;
+			}					
 		:}
-	;
-
-function_stmt
-	::=	VOID ID:variable LPAREN param_list:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoFuncion(variable,ini,pbody);		
-		:}
-	|	INT  ID:variable LPAREN param_list:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoFuncion(variable,ini,pbody);		
-		:}	
-	|	BOOL ID:variable LPAREN param_list:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoFuncion(variable,ini,pbody);		
-		:}	
 	;
 
 function_list
@@ -141,7 +141,22 @@ function_list
 		{:
 			RESULT = null;		
 		:}	
-	;	
+	;
+	
+function_stmt
+	::=	VOID ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
+		:}
+	|	INT  ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
+		:}	
+	|	BOOL ID:variable LPAREN param_list:ini RPAREN body:pbody
+		{:
+			RESULT = new NodoFuncion(variable,ini,pbody);		
+		:}	
+	;		
 
 stmt_seq
 	::= stmt_seq:ini COLON stmt:sent SEMI
