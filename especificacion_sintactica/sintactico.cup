@@ -48,20 +48,13 @@ terminal OR;
 terminal COLON;
 terminal TRUE;
 terminal FALSE;
-<<<<<<< HEAD
 
-
-=======
->>>>>>> origin/master
 
 /* Simbolos No Terminales */
 non terminal program;
 non terminal NodoBase function-list;
-<<<<<<< HEAD
 non terminal NodoBase function-stmt ;
-=======
 non terminal NodoBase function-stmt;
->>>>>>> origin/master
 non terminal NodoBase tipo;
 non terminal NodoBase body;
 non terminal NodoBase stmt_seq;
