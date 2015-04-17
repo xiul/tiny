@@ -45,8 +45,8 @@ public class NodoFuncion extends NodoBase {
 		return body;
 	}
 
-	public void setCuerpo(NodoBase body) {
-		this.cuerpo = body;
+	public void setBody(NodoBase body) {
+		this.body= body;
 	}
 
 
