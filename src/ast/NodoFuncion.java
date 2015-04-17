@@ -6,11 +6,11 @@ public class NodoFuncion extends NodoBase {
 	private NodoBase operacion;
 	private NodoBase cuerpo;
 	
-	public NodoFuncion(NodoBase identificador, NodoBase operacion, NodoBase cuerpo) {
+	public NodoFuncion(NodoBase identificador, NodoBase operacion, NodoBase body) {
 		super();
 		this.identificador = identificador;
 		this.operacion = operacion;
-		this.cuerpo = cuerpo;
+		this.cuerpo = body;
 	}
 	
 
@@ -19,7 +19,7 @@ public class NodoFuncion extends NodoBase {
 		super();
 		this.identificador= null;
 		this.operacion= null;
-		this.cuerpo= null;
+		this.body= null;
 		
 			
 	}
@@ -41,12 +41,12 @@ public class NodoFuncion extends NodoBase {
 		this.operacion = operacion;
 	}
 	
-	public NodoBase getCuerpo() {
-		return cuerpo;
+	public NodoBase getBody() {
+		return body;
 	}
 
-	public void setCuerpo(NodoBase cuerpo) {
-		this.cuerpo = cuerpo;
+	public void setCuerpo(NodoBase body) {
+		this.cuerpo = body;
 	}
 
 
