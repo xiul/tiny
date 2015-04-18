@@ -80,11 +80,13 @@ public class Util {
 		    		System.out.println("**Cuerpo for");
 		     		imprimirAST(((NodoFor)raiz).getCuerpo());
 		    }
+		   
 		    else if (raiz instanceof NodoVector){
 		    	printSpaces();
 		    	System.out.println("**VECTOR de "+((NodoVector)raiz).getVariable()+"[]");
 		    	imprimirAST(((NodoVector)raiz).getNumero());
 		    }
+		    
 		    raiz = raiz.getHermanoDerecha();
 		  }
 		  sangria-=2;

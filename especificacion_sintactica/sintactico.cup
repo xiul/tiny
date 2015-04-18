@@ -77,6 +77,7 @@ non terminal NodoBase exp;
 non terminal NodoBase simple_exp;
 non terminal NodoBase term;
 non terminal NodoBase factor;
+non terminal NodoBase tipo;
 
 
 /* Precedencia de operadores */
@@ -144,15 +145,7 @@ function_list
 	;
 	
 function_stmt
-	::=	VOID ID:variable LPAREN param_list:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoFuncion(variable,ini,pbody);		
-		:}
-	|	INT  ID:variable LPAREN param_list:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoFuncion(variable,ini,pbody);		
-		:}	
-	|	BOOL ID:variable LPAREN param_list:ini RPAREN body:pbody
+	::=	tipo ID:variable LPAREN param_list:ini RPAREN body:pbody
 		{:
 			RESULT = new NodoFuncion(variable,ini,pbody);		
 		:}	
