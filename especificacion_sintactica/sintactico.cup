@@ -52,7 +52,7 @@ terminal FALSE;
 terminal RETURN;
 terminal VOID;
 terminal INT;
-terminal BOOL;
+terminal BOOLEAN;
 
 /* Simbolos No Terminales */
 non terminal program;
@@ -267,7 +267,7 @@ procedure_stmt
 		{:
 			RESULT = new NodoProcedimiento(variable,ini,pbody);		
 		:}
-	|	BOOL ID:variable LPAREN param_list2:ini RPAREN body:pbody
+	|	BOOLEAN ID:variable LPAREN param_list2:ini RPAREN body:pbody
 		{:
 			RESULT = new NodoProcedimiento(variable,ini,pbody);		
 		:}		

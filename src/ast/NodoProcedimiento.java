@@ -1,11 +1,11 @@
 package ast;
 
 public class NodoProcedimiento extends NodoBase {
-	private NodoBase identificador;
+	private String identificador;
 	private NodoBase operacion;
 	private NodoBase cuerpo;
 	
-	public NodoProcedimiento(NodoBase identificador, NodoBase operacion, NodoBase cuerpo) {
+	public NodoProcedimiento(String identificador, NodoBase operacion, NodoBase cuerpo) {
 		super();
 		this.identificador = identificador;
 		this.operacion = operacion;
@@ -21,11 +21,11 @@ public class NodoProcedimiento extends NodoBase {
 			
 	}
 
-	public NodoBase getIdentificador() {
+	public String getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(NodoBase prueba) {
+	public void setIdentificador(String prueba) {
 		this.identificador = prueba;
 	}
 	

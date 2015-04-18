@@ -2,11 +2,11 @@ package ast;
 
 public class NodoFuncion extends NodoBase {
 
-	private NodoBase identificador;
+	private String identificador;
 	private NodoBase operacion;
 	private NodoBase body;
 	
-	public NodoFuncion(NodoBase identificador, NodoBase operacion, NodoBase body) {
+	public NodoFuncion(String identificador, NodoBase operacion, NodoBase body) {
 		super();
 		this.identificador = identificador;
 		this.operacion = operacion;
@@ -24,11 +24,11 @@ public class NodoFuncion extends NodoBase {
 			
 	}
 
-	public NodoBase getIdentificador() {
+	public String getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(NodoBase prueba) {
+	public void setIdentificador(String prueba) {
 		this.identificador = prueba;
 	}
 	
@@ -49,7 +49,4 @@ public class NodoFuncion extends NodoBase {
 		this.body= body;
 	}
 
-
-	
-	
 }
