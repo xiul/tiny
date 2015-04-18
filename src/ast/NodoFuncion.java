@@ -10,45 +10,62 @@ package ast;
  */
 public class NodoFuncion extends NodoBase {
     private String tipo;
-    private String identificador;
-    private NodoBase arg;
+    private NodoIdentificador identificador;
+    private NodoBase argumento;
 
-    public NodoFuncion(String tipo, String identificador) {
+    public NodoFuncion(String tipo, NodoIdentificador identificador) {
         this.tipo = tipo;
         this.identificador = identificador;   
     }
-    public NodoFuncion(String tipo, String identificador, NodoBase variable, NodoBase hermanoDerecha) {
+    public NodoFuncion(String tipo, NodoIdentificador identificador, NodoBase variable, NodoBase hermanoDerecha) {
         super(hermanoDerecha);
         this.tipo = tipo;
         this.identificador = identificador;
-        this.arg = variable;
-    }
-  
-
-    public String getIdentificador() {
-        return identificador;
+        this.argumento = variable;
     }
 
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
-
+    /**
+     * @return the tipo
+     */
     public String getTipo() {
         return tipo;
     }
 
+    /**
+     * @param tipo the tipo to set
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public NodoBase getVariable() {
-        return arg;
+    /**
+     * @return the identificador
+     */
+    public NodoIdentificador getIdentificador() {
+        return identificador;
     }
 
-    public void setVariable(NodoBase arg) {
-        this.arg = arg;
+    /**
+     * @param identificador the identificador to set
+     */
+    public void setIdentificador(NodoIdentificador identificador) {
+        this.identificador = identificador;
     }
-    
+
+    /**
+     * @return the argumento
+     */
+    public NodoBase getArgumento() {
+        return argumento;
+    }
+
+    /**
+     * @param argumento the argumento to set
+     */
+    public void setArgumento(NodoBase argumento) {
+        this.argumento = argumento;
+    }
+   
 
     
 

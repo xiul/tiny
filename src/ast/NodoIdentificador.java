@@ -3,7 +3,7 @@ package ast;
 public class NodoIdentificador extends NodoBase {
 	private String nombre;
 
-        
+        //tipo
     public NodoIdentificador(String nombre, NodoBase hermanoDerecha) {
         super(hermanoDerecha);
         this.nombre = nombre;

@@ -12,11 +12,13 @@ public class NodoPrincipal extends NodoBase {
    private NodoBase funcion;
    private NodoBase contenido;
    private NodoBase block;
+   private int ambito;
 
-    public NodoPrincipal(NodoBase funcion, NodoBase contenido, NodoBase block) {
+    public NodoPrincipal(NodoBase funcion, NodoBase contenido, NodoBase block, int ambito) {
         this.funcion = funcion;
         this.contenido = contenido;
         this.block = block;
+        this.ambito = ambito;
     }
 
     public NodoPrincipal(NodoBase funcion, NodoBase contenido, NodoBase block, NodoBase hermanoDerecha) {
@@ -48,6 +50,14 @@ public class NodoPrincipal extends NodoBase {
 
     public void setFuncion(NodoBase funcion) {
         this.funcion = funcion;
+    }
+    
+    public int getAmbito() {
+        return ambito;
+    }
+    
+    public void setAmbito(int ambito) {
+        this.ambito = ambito;
     }
 
 }
