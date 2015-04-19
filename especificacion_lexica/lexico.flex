@@ -46,6 +46,9 @@ espacio		= [ \t]+
 "else"          {	if(debug) System.out.println("token ELSE");
 			return sf.newSymbol("ELSE",sym.ELSE);
 			}
+"begin"         {	if(debug) System.out.println("token BEGIN");
+			return sf.newSymbol("BEGIN",sym.BEGIN);
+			}			
 "end"           {	if(debug) System.out.println("token END");
 			return sf.newSymbol("END",sym.END);
 			}

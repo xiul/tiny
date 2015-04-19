@@ -1,22 +1,22 @@
 package ast;
 
-public class NodoLLamada {
+public class NodoLLamada extends NodoBase {
 	private String identificador1;
-	private NodoBase parametros;
 	private String identificador2;
+	private NodoBase parametros;	
 	
-	public NodoLLamada(String identificador1, NodoBase parametros) {
+	public NodoLLamada(String identificador2, NodoBase parametros) {
 		super();
-		this.identificador1 = null;
-		this.parametros= parametros;
-		this.identificador2 = identificador1;
+		this.identificador1 = null; /* seria: identificador2(parametros) */
+		this.identificador2 = identificador2;
+		this.parametros= parametros;		
 	}
 	
 	public NodoLLamada(String identificador1, String identificador2, NodoBase parametros) {
 		super();
-		this.identificador1 = identificador1;
-		this.parametros = parametros;
+		this.identificador1 = identificador1; /* seria: identificador1 = identificador2(parametros) */
 		this.identificador2 = identificador2;
+		this.parametros = parametros;		
 	}
 
 	

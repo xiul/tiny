@@ -50,8 +50,8 @@ terminal COLON;
 terminal TRUE;
 terminal FALSE;
 terminal RETURN;
-terminal VOID;
 terminal INT;
+terminal VOID;
 terminal BOOLEAN;
 
 /* Simbolos No Terminales */
@@ -99,8 +99,6 @@ program
 	::= function_list:ini body:pbody
 		{:		
 			NodoBase hijoActual = ini;
-			
-			ast = hijoActual;
 						
 			if(hijoActual!=null)
 			{
@@ -109,7 +107,7 @@ program
 					hijoActual = hijoActual.getHermanoDerecha();
 				} 
 				hijoActual.setHermanoDerecha(pbody);
-				RESULT=ini;
+				ast = ini;
 			}else
 			{
 				ast = pbody;
@@ -152,7 +150,7 @@ function_stmt
 	;		
 
 stmt_seq
-	::= stmt_seq:ini COLON stmt:sent SEMI
+	::= stmt_seq:ini SEMI stmt:sent 
 		{:
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -213,21 +211,15 @@ stmt
 		:}	
 	|	RETURN simple_exp:sexp
 		{:
-			if(sexp!=null)
-			{
-				RESULT = new sexp;		
-			}else
-			{
-				RESULT = null;		
-			}		
+			RESULT =  sexp;				
 		:}	
 	|	RETURN TRUE
 		{:
-			RESULT = TRUE;		
+			RESULT = new NodoBoolean(true);		
 		:}		
 	|	RETURN FALSE
 		{:
-			RESULT = FALSE;		
+			RESULT = new NodoBoolean(false);		
 		:}			
 	|	error
 		{:
@@ -248,7 +240,7 @@ call_stmt
 		:}
 	|	ID:variable1 EQ ID:variable2 LPAREN param_list:ini RPAREN
 		{:
-			if(variable!=null)
+			if(variable1!=null && variable1!=null)
 			{
 				RESULT = new NodoLLamada(variable1,variable2,ini);		
 			}else
@@ -259,15 +251,7 @@ call_stmt
 	;
 
 procedure_stmt
-	::= VOID ID:variable LPAREN param_list2:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoProcedimiento(variable,ini,pbody);		
-		:}
-	|	INT  ID:variable LPAREN param_list2:ini RPAREN body:pbody
-		{:
-			RESULT = new NodoProcedimiento(variable,ini,pbody);		
-		:}
-	|	BOOLEAN ID:variable LPAREN param_list2:ini RPAREN body:pbody
+	::= tipo ID:variable LPAREN param_list2:ini RPAREN body:pbody
 		{:
 			RESULT = new NodoProcedimiento(variable,ini,pbody);		
 		:}		
@@ -278,7 +262,7 @@ body
 		{:
 			RESULT = pbody;		
 		:}
-	;
+	;	
 
 param_list
 	::= param_list:ini COLON INT ID:variable
@@ -290,11 +274,12 @@ param_list
 				{
 					hijoActual = hijoActual.getHermanoDerecha();
 				}
-				hijoActual.setHermanoDerecha(variable);
+				
+				hijoActual.setHermanoDerecha( new NodoIdentificador( variable.toString() ) );
 				RESULT=ini;
 			}else
 			{
-				RESULT=variable;
+				RESULT = new NodoIdentificador(variable.toString());
 			}		
 		:}
 	|	INT ID:variable
