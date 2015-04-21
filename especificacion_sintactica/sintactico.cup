@@ -152,7 +152,7 @@ function_stmt
 	;		
 
 stmt_seq
-	::= stmt_seq:ini SEMI stmt:sent 
+	::= stmt_seq:ini stmt:sent SEMI
 		{:
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -168,7 +168,7 @@ stmt_seq
 				RESULT=sent;
 			}		
 		:}
-	|	stmt:sent
+	|	stmt:sent SEMI
 		{:
 			RESULT = sent;		
 		:}
