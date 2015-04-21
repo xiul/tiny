@@ -88,6 +88,7 @@ precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left OVER;
+precedence left  ELSE;
 precedence left LCORCHETE, RCORCHETE;
 precedence left LPAREN, RPAREN;
 precedence left LCORCHETE,RCORCHETE;
@@ -99,8 +100,6 @@ program
 	::= function_list:ini body:pbody
 		{:		
 			NodoBase hijoActual = ini;
-			
-			ast = hijoActual;
 						
 			if(hijoActual!=null)
 			{
@@ -109,7 +108,8 @@ program
 					hijoActual = hijoActual.getHermanoDerecha();
 				} 
 				hijoActual.setHermanoDerecha(pbody);
-				RESULT=ini;
+				
+				ast = ini;
 			}else
 			{
 				ast = pbody;
@@ -171,11 +171,7 @@ stmt_seq
 	|	stmt:sent SEMI
 		{:
 			RESULT = sent;		
-		:}
-	|
-		{:
-			RESULT = null;		
-		:}		
+		:}	
 	;
 
 stmt
@@ -222,11 +218,11 @@ stmt
 	|	RETURN FALSE
 		{:
 			RESULT = new NodoBoolean(false);		
-		:}			
+		:}	
 	|	error
 		{:
 			RESULT = null;		
-		:}
+		:}				
 	;	
 
 call_stmt 
