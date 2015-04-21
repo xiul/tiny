@@ -99,6 +99,8 @@ program
 	::= function_list:ini body:pbody
 		{:		
 			NodoBase hijoActual = ini;
+			
+			ast = hijoActual;
 						
 			if(hijoActual!=null)
 			{
@@ -107,7 +109,7 @@ program
 					hijoActual = hijoActual.getHermanoDerecha();
 				} 
 				hijoActual.setHermanoDerecha(pbody);
-				ast = ini;
+				RESULT=ini;
 			}else
 			{
 				ast = pbody;
