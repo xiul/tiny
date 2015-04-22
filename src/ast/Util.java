@@ -68,7 +68,7 @@ public class Util {
 		    }
 		    else if (raiz instanceof NodoFor){
 		    		printSpaces();
-		    		System.out.println("**Asignacion for**");
+		    		System.out.println("**Asignacion FOR**");
 			    	imprimirAST(((NodoFor)raiz).getAsig());
 			    	printSpaces();
 		    		System.out.println("**Comprobacion for");
@@ -134,12 +134,13 @@ static void imprimirNodo( NodoBase raiz )
 		if(sel==tipoOp.por)
 			System.out.println("*");
 		if(sel==tipoOp.entre)
-			System.out.println("/");	
+			System.out.println("/");
 		if(sel==tipoOp.and)
 			System.out.println("AND");
 		if(sel==tipoOp.or)
 			System.out.println("OR");
 	}
+
 	if(	raiz instanceof NodoValor ){
 		System.out.println("NUM, val= "+ ((NodoValor)raiz).getValor());
 	}
@@ -150,6 +151,7 @@ static void imprimirNodo( NodoBase raiz )
 	if(raiz instanceof NodoVector){
 		System.out.println("Variable "+((NodoVector)raiz).getVariable());
 	}
+
 
 }
 
