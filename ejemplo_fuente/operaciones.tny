@@ -1,1 +1,3 @@
-write 1+2*3
+begin
+	int x2;
+end

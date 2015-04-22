@@ -2,8 +2,11 @@ package compilador;
 
 public class RegistroSimbolo {
 	private String identificador;
-	private int NumLinea;
-	private int DireccionMemoria;
+	private int NumLinea;//imem instrucciones
+	private int DireccionMemoria;//variables y parametros
+        private String tipo;
+        private int tamaño; //Vectores
+        
 	
 	public RegistroSimbolo(String identificador, int numLinea,
 			int direccionMemoria) {
@@ -28,4 +31,7 @@ public class RegistroSimbolo {
 	public void setDireccionMemoria(int direccionMemoria) {
 		DireccionMemoria = direccionMemoria;
 	}
+
+
+  
 }
