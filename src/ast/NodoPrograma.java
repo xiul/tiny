@@ -1,5 +1,6 @@
 package ast;
 
+<<<<<<< HEAD
 public class NodoPrograma extends NodoBase {
 	private NodoBase operacion;
 	private NodoBase cuerpo;
@@ -24,5 +25,8 @@ public class NodoPrograma extends NodoBase {
 	public NodoBase getCuerpo() {
 		return cuerpo;
 	}
+=======
+public class NodoPrograma {
+>>>>>>> origin/master
 
 }
