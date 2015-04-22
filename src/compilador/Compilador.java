@@ -24,7 +24,15 @@ public class Compilador {
 
 		UtGen.debug=true; //NO muestro mensajes de depuracion del generador (UTGen) para que el codigo sea compatible con la version visual de la TM
 		//Para ver depuracion de analisis sintactico se debe ir al parser.java y colocar modoDepuracion en true
+		
+	
 		parser_obj.parse();
+		
+		if(parser_obj.action_obj.getASTroot()==null)
+			System.out.print("Arbol nulo");
+		else
+			System.out.print("Algo");
+		
 		ast.Util.imprimirAST(parser_obj.action_obj.getASTroot());
 		NodoBase root=parser_obj.action_obj.getASTroot();
 		System.out.println();

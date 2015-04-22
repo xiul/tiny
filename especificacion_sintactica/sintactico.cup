@@ -99,7 +99,7 @@ precedence left LPAREN, RPAREN;
 program
 	::= function_list:ini body:pbody
 		{:	
-			if(debug) System.out.println("\t regla 1: programa");
+			
 				
 			NodoBase hijoActual = ini;
 						
@@ -122,7 +122,7 @@ program
 function_list
 	::=	function_list:ini function_stmt:fest
 		{:
-			if(debug) System.out.println("\t regla 2: secuencia de sentencias 1");
+			
 		
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -140,13 +140,13 @@ function_list
 		:}
 	|	function_stmt:fest
 		{:
-			if(debug) System.out.println("\t regla 2: secuencia de sentencias 2");
+			
 			
 			RESULT = fest;					
 		:}	
 	|
 		{:
-			if(debug) System.out.println("\t regla 2: secuencia de sentencias epsilon");
+			
 			
 			RESULT = null;		
 		:}	
@@ -155,7 +155,7 @@ function_list
 function_stmt
 	::=	tipo ID:variable LPAREN param_list:ini RPAREN body:pbody
 		{:
-			if(debug) System.out.println("\t regla 3: función");
+			
 		
 			RESULT = new NodoFuncion(variable,ini,pbody);		
 		:}	
@@ -164,7 +164,7 @@ function_stmt
 stmt_seq
 	::= stmt_seq:ini stmt:sent SEMI
 		{:
-			if(debug) System.out.println("\t regla 4: secuencia de sentencias 1");
+			
 		
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -182,7 +182,7 @@ stmt_seq
 		:}
 	|	stmt:sent SEMI
 		{:
-			if(debug) System.out.println("\t regla 4: secuencia de sentencias 2");
+			
 		
 			RESULT = sent;		
 		:}	
@@ -191,73 +191,73 @@ stmt_seq
 stmt
 	::= if_stmt:sif
 		{:
-			if(debug) System.out.println("\t regla sentencia if");
+			
 			
 			RESULT = sif;		
 		:}
 	|	repeat_stmt:srep
 		{:
-			if(debug) System.out.println("\t regla sentencia repeat");
+			
 		
 			RESULT = srep;		
 		:}	
 	|	assign_stmt:sasi
 		{:
-			if(debug) System.out.println("\t regla sentencia asignación");
+			
 			
 			RESULT = sasi;		
 		:}	
 	|	read_stmt:slec
 		{:
-			if(debug) System.out.println("\t regla sentencia leer");
+			
 		
 			RESULT = slec;		
 		:}	
 	|	write_stmt:sesc
 		{:
-			if(debug) System.out.println("\t regla sentencia escribir");
+			
 		
 			RESULT = sesc;		
 		:}	
 	|	for_stmt:sfor
 		{:
-			if(debug) System.out.println("\t regla sentencia for");
+			
 		
 			RESULT = sfor;		
 		:}	
 	|	procedure_stmt:sproc
 		{:
-			if(debug) System.out.println("\t regla sentencia procedimiento");
+			
 		
 			RESULT = sproc;		
 		:}	
 	|	call_stmt:scall
 		{:
-			if(debug) System.out.println("\t regla 3: llamada de función");
+			
 		
 			RESULT = scall;		
 		:}	
 	|	RETURN simple_exp:sexp
 		{:
-			if(debug) System.out.println("\t regla 8: return de expresion simple");
+			
 		
 			RESULT =  sexp;				
 		:}	
 	|	RETURN TRUE
 		{:
-			if(debug) System.out.println("\t regla 8: return true");
+			
 		
 			RESULT = new NodoBoolean(true);		
 		:}		
 	|	RETURN FALSE
 		{:
-			if(debug) System.out.println("\t regla 8: return false");
+			
 		
 			RESULT = new NodoBoolean(false);		
 		:}	
 	|	error
 		{:
-			if(debug) System.out.println("\t regla 9: error de sentencia");
+			
 		
 			RESULT = null;		
 		:}				
@@ -266,7 +266,7 @@ stmt
 call_stmt 
 	::= ID:variable LPAREN param_list:ini RPAREN
 		{:
-			if(debug) System.out.println("\t regla 3: llamada de función");
+			
 		
 			if(variable!=null)
 			{
@@ -278,7 +278,7 @@ call_stmt
 		:}
 	|	ID:variable1 EQ ID:variable2 LPAREN param_list:ini RPAREN
 		{:
-			if(debug) System.out.println("\t regla 3: llamada de funcion función con asignación");
+		
 		
 			if(variable1!=null && variable1!=null)
 			{
@@ -293,7 +293,7 @@ call_stmt
 procedure_stmt
 	::= tipo ID:variable LPAREN param_list2:ini RPAREN body:pbody
 		{:
-			if(debug) System.out.println("\t regla 10: procedimiento");
+			
 		
 			RESULT = new NodoProcedimiento(variable,ini,pbody);		
 		:}		
@@ -302,7 +302,7 @@ procedure_stmt
 body
 	::= BEGIN stmt_seq:pbody END
 		{:
-			if(debug) System.out.println("\t regla 11: cuerpo con sentencias");
+	
 		
 			RESULT = pbody;		
 		:}
@@ -311,7 +311,7 @@ body
 param_list
 	::= param_list:ini COLON INT ID:variable
 		{:
-			if(debug) System.out.println("\t regla 12: dos o mas parametros");
+			
 			
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -330,7 +330,7 @@ param_list
 		:}
 	|	INT ID:variable
 		{:
-			if(debug) System.out.println("\t regla 12: un solo parametro");
+			
 		
 			if(variable!=null)
 			{
@@ -342,7 +342,7 @@ param_list
 		:}	
 	|  
 		{:
-			if(debug) System.out.println("\t regla 12: funcion sin parametros");
+			
 		
 			RESULT = null;		
 		:}
@@ -351,7 +351,7 @@ param_list
 param_list2
 	::= param_list2:ini COLON exp:ex
 		{:	
-			if(debug) System.out.println("\t regla 13: dos o mas parametros de procedimiento");
+			
 		
 			NodoBase hijoActual = ini;
 			if(hijoActual!=null)
@@ -369,13 +369,13 @@ param_list2
 		:}
 	|	exp:ex
 		{:
-			if(debug) System.out.println("\t regla 13: un parametro de procedimiento");
+			
 		
 			RESULT = ex;		
 		:}	
 	|  
 		{:
-			if(debug) System.out.println("\t regla 13: procedimiento sin parametros");
+			
 			
 			RESULT = null;		
 		:}
@@ -384,8 +384,7 @@ param_list2
 for_stmt
 	::= FOR LPAREN assign_stmt:pasig SEMI exp:pcomprob SEMI assign_stmt:ppaso RPAREN stmt_seq:pcuerpo END
 		{:
-			if(debug) System.out.println("\t regla sentencia for interna");
-		
+			
 			RESULT = new NodoFor(pasig,pcomprob,ppaso,pcuerpo);		
 		:}
 	;	
@@ -393,13 +392,13 @@ for_stmt
 if_stmt
 	::= IF exp2:ex THEN stmt_seq:pthen END
 		{:
-			if(debug) System.out.println("\t regla sentencia if interna");
+			
 		
 			RESULT = new NodoIf(ex,pthen);		
 		:}
 	|	IF exp2:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END
 		{:
-			if(debug) System.out.println("\t regla sentencia if interna con else");
+			
 		
 			RESULT = new NodoIf(ex,pthen,pelse);		
 		:}	
@@ -408,7 +407,7 @@ if_stmt
 repeat_stmt
 	::= REPEAT stmt_seq:exI UNTIL exp3:exD
 		{:
-			if(debug) System.out.println("\t regla sentencia repeat interna");
+			
 		
 			RESULT = new NodoRepeat(exI,exD);		
 		:}
@@ -417,7 +416,7 @@ repeat_stmt
 assign_stmt
 	::= ID:variable ASSIGN exp3:ex
 		{:
-			if(debug) System.out.println("\t regla sentencia asignacion interna");
+			
 		
 			if(variable!=null)
 			{
@@ -432,7 +431,7 @@ assign_stmt
 read_stmt
 	::= READ ID:variable
 		{:
-			if(debug) System.out.println("\t regla sentencia lectura interna");
+	
 		
 			if(variable!=null)
 			{
@@ -447,7 +446,7 @@ read_stmt
 write_stmt
 	::=	WRITE exp3:ex
 		{:
-			if(debug) System.out.println("\t regla sentencia escritura interna");
+			
 		
 			RESULT = new NodoEscribir(ex);		
 		:}
@@ -456,19 +455,19 @@ write_stmt
 exp3
 	::= exp3:exI OR  exp2:exD
 		{:
-			if(debug) System.out.println("\t regla operacion OR");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.or,exD);		
 		:}
 	|	exp3:exI AND exp2:exD
 		{:
-			if(debug) System.out.println("\t regla operacion AND");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.and,exD);		
 		:}	
 	|	exp2:ex
 		{:
-			if(debug) System.out.println("\t regla derivacion exp3 a exp2");
+			
 		
 			RESULT = ex;		
 		:}
@@ -477,19 +476,19 @@ exp3
 exp2
 	::= exp2:exI EQ 		exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion igualdad");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.igual,exD);		
 		:}
 	|	exp2:exI DIFERENTE  exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion diferente");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.diferente,exD);		
 		:}	
 	|	exp:ex
 		{:
-			if(debug) System.out.println("\t regla derivacion exp2 a exp");
+			
 		
 			RESULT = ex;
 		:}
@@ -498,31 +497,31 @@ exp2
 exp
 	::= simple_exp:exI LT	 	  simple_exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion menor que");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.menor,exD);		
 		:}	
 	|	simple_exp:exI BT 		  simple_exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion mayor que");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.mayor,exD);		
 		:}	
 	|	simple_exp:exI MENORIGUAL simple_exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion menor o igual que");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.menorigual,exD);		
 		:}	
 	|	simple_exp:exI MAYORIGUAL simple_exp:exD
 		{:
-			if(debug) System.out.println("\t regla operacion mayor o igual que");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.mayorigual,exD);		
 		:}					
 	|	simple_exp:ex
 		{:
-			if(debug) System.out.println("\t regla operacion derivacion expresion a expresion simple");
+			
 		
 			RESULT = ex;		
 		:}
@@ -531,19 +530,19 @@ exp
 simple_exp
 	::= simple_exp:exI PLUS  term:exD
 		{:
-			if(debug) System.out.println("\t regla operacion SUMA");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.mas,exD);		
 		:}
 	|  	simple_exp:exI MINUS term:exD
 		{:
-			if(debug) System.out.println("\t regla operacion RESTA");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.menos,exD);		
 		:}		
 	|	term:ex
 		{:
-			if(debug) System.out.println("\t regla operacion derivacion expresion simple a termino");
+			
 		
 			RESULT = ex;		
 		:}
@@ -552,19 +551,19 @@ simple_exp
 term
 	::= term:exI TIMES factor:exD
 		{:
-			if(debug) System.out.println("\t regla operacion MULTIPLICACION");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.por,exD);
 		:}		
 	|	term:exI OVER  factor:exD
 		{:
-			if(debug) System.out.println("\t regla operacion DIVISION");
+			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.entre,exD);		
 		:}		
 	|	factor:ex
 		{:
-			if(debug) System.out.println("\t regla operacion derivacion termino a factor");
+			
 		
 			RESULT = ex;		
 		:} 
@@ -573,13 +572,13 @@ term
 factor
 	::= LPAREN exp:e RPAREN
 		{:
-			if(debug) System.out.println("\t regla factor a expresion entre parentesis");
+			
 			
 			RESULT = e;
 		:}	
 	|	NUM:valor
 		{:
-			if(debug) System.out.println("\t regla valor numerico");
+			
 		
 			if(valor!=null)
 			{
@@ -591,7 +590,7 @@ factor
 		:}
 	|	ID:variable
 		{:
-			if(debug) System.out.println("\t regla identificador");
+			 
 		
 			if(variable!=null)
 			{
@@ -603,13 +602,13 @@ factor
 		:}
 	| ID:variable LCORCHETE simple_exp:e RCORCHETE 
 		{:
-			if(debug) System.out.println("\t regla vector");
+			
 		
 			RESULT = new NodoVector(variable,e);
 		:} 		
 	| error
 		{:
-			if(debug) System.out.println("\t regla error en factor");
+			
 		
 			RESULT = null;
 		:}
