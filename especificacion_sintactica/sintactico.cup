@@ -88,20 +88,24 @@ precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left OVER;
-precedence left  ELSE;
-precedence left LCORCHETE, RCORCHETE;
-precedence left LPAREN, RPAREN;
+precedence left ELSE;
 precedence left LCORCHETE,RCORCHETE;
 precedence left LPAREN, RPAREN;
 
 /* REGLAS GRAMATICALES */
 
 program
+<<<<<<< HEAD
 	::= function_list:ini body:pbody
 		{:	
 			
 				
 			NodoBase hijoActual = ini;
+=======
+	::= function_list:funist body:pbody
+		{:				
+			NodoBase hijoActual = funist;
+>>>>>>> origin/master
 						
 			if(hijoActual!=null)
 			{
@@ -111,20 +115,27 @@ program
 				} 
 				hijoActual.setHermanoDerecha(pbody);
 				
-				ast = ini;
+				ast = new NodoPrograma(funist,pbody);
 			}else
 			{
-				ast = pbody;
+				ast = new NodoPrograma(pbody);
 			}					
 		:}
 	;
 
 function_list
+<<<<<<< HEAD
 	::=	function_list:ini function_stmt:fest
 		{:
 			
 		
 			NodoBase hijoActual = ini;
+=======
+	::=	function_list:funist function_stmt:fest
+		{:		
+			NodoBase hijoActual = funist;
+			
+>>>>>>> origin/master
 			if(hijoActual!=null)
 			{
 				while(hijoActual.TieneHermano())
@@ -132,22 +143,28 @@ function_list
 					hijoActual = hijoActual.getHermanoDerecha();
 				}
 				hijoActual.setHermanoDerecha(fest);
-				RESULT=ini;
+				RESULT = funist;
 			}else
 			{
-				RESULT=fest;
+				RESULT = fest;
 			}		
 		:}
 	|	function_stmt:fest
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			RESULT = fest;					
 		:}	
 	|
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			RESULT = null;		
 		:}	
 	;
@@ -155,8 +172,11 @@ function_list
 function_stmt
 	::=	tipo ID:variable LPAREN param_list:ini RPAREN body:pbody
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoFuncion(variable,ini,pbody);		
 		:}	
 	;		
@@ -164,9 +184,13 @@ function_stmt
 stmt_seq
 	::= stmt_seq:ini stmt:sent SEMI
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			NodoBase hijoActual = ini;
+			
 			if(hijoActual!=null)
 			{
 				while(hijoActual.TieneHermano())
@@ -182,8 +206,11 @@ stmt_seq
 		:}
 	|	stmt:sent SEMI
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = sent;		
 		:}	
 	;
@@ -191,74 +218,110 @@ stmt_seq
 stmt
 	::= if_stmt:sif
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			RESULT = sif;		
 		:}
 	|	repeat_stmt:srep
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = srep;		
 		:}	
 	|	assign_stmt:sasi
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			RESULT = sasi;		
 		:}	
 	|	read_stmt:slec
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = slec;		
 		:}	
 	|	write_stmt:sesc
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = sesc;		
 		:}	
 	|	for_stmt:sfor
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = sfor;		
 		:}	
 	|	procedure_stmt:sproc
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = sproc;		
 		:}	
 	|	call_stmt:scall
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = scall;		
 		:}	
 	|	RETURN simple_exp:sexp
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT =  sexp;				
 		:}	
 	|	RETURN TRUE
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoBoolean(true);		
 		:}		
 	|	RETURN FALSE
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoBoolean(false);		
 		:}	
 	|	error
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = null;		
 		:}				
 	;	
@@ -266,8 +329,11 @@ stmt
 call_stmt 
 	::= ID:variable LPAREN param_list:ini RPAREN
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			if(variable!=null)
 			{
 				RESULT = new NodoLLamada(variable,ini);		
@@ -278,8 +344,11 @@ call_stmt
 		:}
 	|	ID:variable1 EQ ID:variable2 LPAREN param_list:ini RPAREN
 		{:
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> origin/master
 			if(variable1!=null && variable1!=null)
 			{
 				RESULT = new NodoLLamada(variable1,variable2,ini);		
@@ -292,9 +361,13 @@ call_stmt
 
 procedure_stmt
 	::= tipo ID:variable LPAREN param_list2:ini RPAREN body:pbody
+<<<<<<< HEAD
 		{:
 			
 		
+=======
+		{:	
+>>>>>>> origin/master
 			RESULT = new NodoProcedimiento(variable,ini,pbody);		
 		:}		
 	;
@@ -302,8 +375,11 @@ procedure_stmt
 body
 	::= BEGIN stmt_seq:pbody END
 		{:
+<<<<<<< HEAD
 	
 		
+=======
+>>>>>>> origin/master
 			RESULT = pbody;		
 		:}
 	;	
@@ -311,9 +387,13 @@ body
 param_list
 	::= param_list:ini COLON INT ID:variable
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			NodoBase hijoActual = ini;
+			
 			if(hijoActual!=null)
 			{
 				while(hijoActual.TieneHermano())
@@ -330,8 +410,11 @@ param_list
 		:}
 	|	INT ID:variable
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			if(variable!=null)
 			{
 				RESULT= new NodoIdentificador(variable.toString());			
@@ -342,18 +425,25 @@ param_list
 		:}	
 	|  
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = null;		
 		:}
 	;	
 	
 param_list2
-	::= param_list2:ini COLON exp:ex
+	::= param_list2:ini COLON exp3:ex
 		{:	
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			NodoBase hijoActual = ini;
+			
 			if(hijoActual!=null)
 			{
 				while(hijoActual.TieneHermano())
@@ -367,39 +457,54 @@ param_list2
 				RESULT=ex;
 			}		
 		:}
-	|	exp:ex
+	|	exp3:ex
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = ex;		
 		:}	
 	|  
 		{:
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> origin/master
 			RESULT = null;		
 		:}
 	;	
 
 for_stmt
-	::= FOR LPAREN assign_stmt:pasig SEMI exp:pcomprob SEMI assign_stmt:ppaso RPAREN stmt_seq:pcuerpo END
+	::= FOR LPAREN assign_stmt:pasig SEMI exp3:pcomprob SEMI assign_stmt:ppaso RPAREN stmt_seq:pcuerpo END
 		{:
+<<<<<<< HEAD
 			
+=======
+>>>>>>> origin/master
 			RESULT = new NodoFor(pasig,pcomprob,ppaso,pcuerpo);		
 		:}
 	;	
 
 if_stmt
-	::= IF exp2:ex THEN stmt_seq:pthen END
+	::= IF exp3:ex THEN stmt_seq:pthen END
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoIf(ex,pthen);		
 		:}
-	|	IF exp2:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END
+	|	IF exp3:ex THEN stmt_seq:pthen ELSE stmt_seq:pelse END
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoIf(ex,pthen,pelse);		
 		:}	
 	;
@@ -407,8 +512,11 @@ if_stmt
 repeat_stmt
 	::= REPEAT stmt_seq:exI UNTIL exp3:exD
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoRepeat(exI,exD);		
 		:}
 	;
@@ -416,8 +524,11 @@ repeat_stmt
 assign_stmt
 	::= ID:variable ASSIGN exp3:ex
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			if(variable!=null)
 			{
 				RESULT = new NodoAsignacion(variable.toString(),ex);							
@@ -431,8 +542,11 @@ assign_stmt
 read_stmt
 	::= READ ID:variable
 		{:
+<<<<<<< HEAD
 	
 		
+=======
+>>>>>>> origin/master
 			if(variable!=null)
 			{
 				RESULT= new NodoLeer(variable.toString());			
@@ -446,8 +560,11 @@ read_stmt
 write_stmt
 	::=	WRITE exp3:ex
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoEscribir(ex);		
 		:}
 	;
@@ -455,27 +572,37 @@ write_stmt
 exp3
 	::= exp3:exI OR  exp2:exD
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoOperacion(exI,tipoOp.or,exD);		
 		:}
 	|	exp3:exI AND exp2:exD
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoOperacion(exI,tipoOp.and,exD);		
 		:}	
 	|	exp2:ex
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = ex;		
 		:}
 	;	
 
 exp2
-	::= exp2:exI EQ 		exp:exD
+	::= simple_exp:exI EQ 		simple_exp:exD
 		{:
+<<<<<<< HEAD
 			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.igual,exD);		
@@ -484,12 +611,21 @@ exp2
 		{:
 			
 		
+=======
+			RESULT = new NodoOperacion(exI,tipoOp.igual,exD);		
+		:}
+	|	simple_exp:exI DIFERENTE  simple_exp:exD
+		{:	
+>>>>>>> origin/master
 			RESULT = new NodoOperacion(exI,tipoOp.diferente,exD);		
 		:}	
 	|	exp:ex
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = ex;
 		:}
 	;
@@ -497,18 +633,25 @@ exp2
 exp
 	::= simple_exp:exI LT	 	  simple_exp:exD
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoOperacion(exI,tipoOp.menor,exD);		
 		:}	
 	|	simple_exp:exI BT 		  simple_exp:exD
 		{:
+<<<<<<< HEAD
 			
 		
+=======
+>>>>>>> origin/master
 			RESULT = new NodoOperacion(exI,tipoOp.mayor,exD);		
 		:}	
 	|	simple_exp:exI MENORIGUAL simple_exp:exD
 		{:
+<<<<<<< HEAD
 			
 		
 			RESULT = new NodoOperacion(exI,tipoOp.menorigual,exD);		
@@ -523,12 +666,23 @@ exp
 		{:
 			
 		
+=======
+			RESULT = new NodoOperacion(exI,tipoOp.menorigual,exD);		
+		:}	
+	|	simple_exp:exI MAYORIGUAL simple_exp:exD
+		{:	
+			RESULT = new NodoOperacion(exI,tipoOp.mayorigual,exD);		
+		:}					
+	|	simple_exp:ex
+		{:	
+>>>>>>> origin/master
 			RESULT = ex;		
 		:}
 	;	
 
 simple_exp
 	::= simple_exp:exI PLUS  term:exD
+<<<<<<< HEAD
 		{:
 			
 		
@@ -544,12 +698,24 @@ simple_exp
 		{:
 			
 		
+=======
+		{:	
+			RESULT = new NodoOperacion(exI,tipoOp.mas,exD);		
+		:}
+	|  	simple_exp:exI MINUS term:exD
+		{:	
+			RESULT = new NodoOperacion(exI,tipoOp.menos,exD);		
+		:}		
+	|	term:ex
+		{:	
+>>>>>>> origin/master
 			RESULT = ex;		
 		:}
 	;	
 		
 term
 	::= term:exI TIMES factor:exD
+<<<<<<< HEAD
 		{:
 			
 		
@@ -565,12 +731,24 @@ term
 		{:
 			
 		
+=======
+		{:	
+			RESULT = new NodoOperacion(exI,tipoOp.por,exD);
+		:}		
+	|	term:exI OVER  factor:exD
+		{:	
+			RESULT = new NodoOperacion(exI,tipoOp.entre,exD);		
+		:}		
+	|	factor:ex
+		{:	
+>>>>>>> origin/master
 			RESULT = ex;		
 		:} 
 	;	
 		
 factor
 	::= LPAREN exp:e RPAREN
+<<<<<<< HEAD
 		{:
 			
 			
@@ -580,6 +758,13 @@ factor
 		{:
 			
 		
+=======
+		{:		
+			RESULT = e;
+		:}	
+	|	NUM:valor
+		{:	
+>>>>>>> origin/master
 			if(valor!=null)
 			{
 				RESULT = new NodoValor(valor);			
@@ -589,9 +774,13 @@ factor
 			}	
 		:}
 	|	ID:variable
+<<<<<<< HEAD
 		{:
 			 
 		
+=======
+		{:	
+>>>>>>> origin/master
 			if(variable!=null)
 			{
 				RESULT= new NodoIdentificador(variable.toString());			
@@ -601,6 +790,7 @@ factor
 			}	
 		:}
 	| ID:variable LCORCHETE simple_exp:e RCORCHETE 
+<<<<<<< HEAD
 		{:
 			
 		
@@ -610,6 +800,13 @@ factor
 		{:
 			
 		
+=======
+		{:	
+			RESULT = new NodoVector(variable.toString(),e);
+		:} 		
+	| error
+		{:	
+>>>>>>> origin/master
 			RESULT = null;
 		:}
 	;

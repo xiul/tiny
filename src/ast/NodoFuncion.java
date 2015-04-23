@@ -3,27 +3,32 @@ package ast;
 public class NodoFuncion extends NodoBase {
 
 	private String identificador;
-	private NodoBase operacion;
+	private NodoBase argumentos;
 	private NodoBase body;
 	
-	public NodoFuncion(String identificador, NodoBase operacion, NodoBase body) {
+	public NodoFuncion(String identificador, NodoBase argumentos, NodoBase body) {
 		super();
 		this.identificador = identificador;
-		this.operacion = operacion;
+		this.argumentos = argumentos;
 		this.body = body;
 	}
 	
-
+	public NodoFuncion(String identificador, NodoBase body) {
+		super();
+		this.identificador = identificador;
+		this.argumentos = null;
+		this.body = body;
+	}	
 	
 	public NodoFuncion() {
 		super();
 		this.identificador= null;
-		this.operacion= null;
+		this.argumentos= null;
 		this.body= null;
 		
 			
 	}
-
+	
 	public String getIdentificador() {
 		return identificador;
 	}
@@ -33,12 +38,12 @@ public class NodoFuncion extends NodoBase {
 	}
 	
 	
-	public NodoBase getOperacion() {
-		return operacion;
+	public NodoBase getArgumentos() {
+		return argumentos;
 	}
 
-	public void setOperacion(NodoBase operacion) {
-		this.operacion = operacion;
+	public void setArgumentos(NodoBase operacion) {
+		this.argumentos = argumentos;
 	}
 	
 	public NodoBase getBody() {
