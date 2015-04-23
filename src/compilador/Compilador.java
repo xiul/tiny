@@ -21,65 +21,20 @@ public class Compilador {
 			parser_obj=new parser(new Scanner(System.in,sf),sf);
 		else 
 			parser_obj=new parser(new Scanner(new java.io.FileInputStream(args[0]),sf),sf);
-<<<<<<< HEAD
-<<<<<<< HEAD
-			UtGen.debug=true; //NO muestro mensajes de depuracion del generador (UTGen) para que el codigo sea compatible con la version visual de la TM
-		   //Para ver depuracion de analisis sintactico se debe ir al parser.java y colocar modoDepuracion en true
-			parser_obj.parse();
-			
-			NodoBase root=parser_obj.action_obj.getASTroot();
-		if(root==null){
-			System.out.println("Vacia");
-		}
-		else{
-			System.out.println("lleno");
-		}
-		
-=======
-
-=======
->>>>>>> origin/master
 		UtGen.debug=true; //NO muestro mensajes de depuracion del generador (UTGen) para que el codigo sea compatible con la version visual de la TM
 		//Para ver depuracion de analisis sintactico se debe ir al parser.java y colocar modoDepuracion en true
-		
-	
 		parser_obj.parse();
-		
-		if(parser_obj.action_obj.getASTroot()==null)
-			System.out.print("Arbol nulo");
-		else
-			System.out.print("Algo");
-		
-		ast.Util.imprimirAST(parser_obj.action_obj.getASTroot());
-		NodoBase root=parser_obj.action_obj.getASTroot();
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
-		
-		if(root==null)
-		{
-			System.out.println("raiz vacia");
-		}else
-		{
-			System.out.println("raiz llena");
-		}
-		
->>>>>>> origin/master
+		NodoBase root=parser_obj.action_obj.getASTroot();	
 		System.out.println();
 		System.out.println("IMPRESION DEL AST GENERADO");
 		System.out.println();
-		
 		ast.Util.imprimirAST(root);
-	
 		TablaSimbolos ts = new TablaSimbolos();
 		ts.cargarTabla(root);
 		ts.ImprimirClaves();
 	    //REALIZAR ACA ANALISIS SEMANTICO
-		//Generador.setTablaSimbolos(ts);
-	//	Generador.generarCodigoObjeto(root);
-		
-			
-	   }
+		Generador.setTablaSimbolos(ts);
+		Generador.generarCodigoObjeto(root);
 	}
 
-
+}

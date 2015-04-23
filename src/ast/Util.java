@@ -7,34 +7,65 @@ public class Util {
 	//Imprimo en modo texto con sangrias el AST
 	public static void imprimirAST(NodoBase raiz){
 		  sangria+=2;
-		  while (raiz != null) {
-		    printSpaces();
+		  while (raiz != null) 
+		  {
 		    if (raiz instanceof  NodoIf)
+		    {
+		    	printSpaces();
 		    	System.out.println("If");
+		    }
 		    else if (raiz instanceof  NodoRepeat)
+		    {
+		    	printSpaces();
 		    	System.out.println("Repeat");
-		    
+		    }
 		    else if (raiz instanceof  NodoAsignacion)
+		    {
+		    	printSpaces();
 		    	System.out.println("Asignacion a: "+((NodoAsignacion)raiz).getIdentificador());
-
-		    else if (raiz instanceof  NodoLeer)  
+		    }
+		    
+		    else if (raiz instanceof  NodoLeer) 
+		    {
+		    	printSpaces();
 		    	System.out.println("Lectura: "+((NodoLeer)raiz).getIdentificador());
-
+		    }
 		    else if (raiz instanceof  NodoEscribir)
+		    {
+		    	printSpaces();
 		    	System.out.println("Escribir");
+		    }
 		    
+		    else if (raiz instanceof  NodoPrograma)
+		    	System.out.println("Raiz");		    
+		    
+		    else if (raiz instanceof  NodoFuncion)
+		    {
+		    	printSpaces();
+		    	System.out.println("Funcion");
+		    }
+		    else if (raiz instanceof  NodoLLamada)
+		    {
+		    	printSpaces();
+		    	System.out.println("LLamada a Funcion");
+		    }
 		    else if (raiz instanceof NodoFor)
+		    {
+		    	printSpaces();
 		    	System.out.println("For");
-		    
+		    }
 		    else if (raiz instanceof NodoOperacion
 		    		|| raiz instanceof NodoValor
 		    		|| raiz instanceof NodoIdentificador )
+		    {
+		    	printSpaces();
 		    	imprimirNodo(raiz);
-    
+		    }
 		    else System.out.println("Tipo de nodo desconocido");;
 		    
 		    /* Hago el recorrido recursivo */
-		    if (raiz instanceof  NodoIf){
+		    if (raiz instanceof  NodoIf)
+		    {
 		    	printSpaces();
 		    	System.out.println("**Prueba IF**");
 		    	imprimirAST(((NodoIf)raiz).getPrueba());
@@ -47,7 +78,8 @@ public class Util {
 		    		imprimirAST(((NodoIf)raiz).getParteElse());
 		    	}
 		    }
-		    else if (raiz instanceof  NodoRepeat){
+		    else if (raiz instanceof  NodoRepeat)
+		    {
 		    	printSpaces();
 		    	System.out.println("**Cuerpo REPEAT**");
 		    	imprimirAST(((NodoRepeat)raiz).getCuerpo());
@@ -56,10 +88,17 @@ public class Util {
 		    	imprimirAST(((NodoRepeat)raiz).getPrueba());
 		    }
 		    else if (raiz instanceof  NodoAsignacion)
+		    {
+		    	printSpaces();
 		    	imprimirAST(((NodoAsignacion)raiz).getExpresion());
+		    }
 		    else if (raiz instanceof  NodoEscribir)
+		    {
+		    	printSpaces();
 		    	imprimirAST(((NodoEscribir)raiz).getExpresion());
-		    else if (raiz instanceof NodoOperacion){
+		    }
+		    else if (raiz instanceof NodoOperacion)
+		    {
 		    	printSpaces();
 		    	System.out.println("**Expr Izquierda Operacion**");
 		    	imprimirAST(((NodoOperacion)raiz).getOpIzquierdo());
@@ -67,7 +106,8 @@ public class Util {
 		    	System.out.println("**Expr Derecha Operacion**");		    	
 		    	imprimirAST(((NodoOperacion)raiz).getOpDerecho());
 		    }
-		    else if (raiz instanceof NodoFor){
+		    else if (raiz instanceof NodoFor)
+		    {
 		    		printSpaces();
 		    		System.out.println("**Asignacion FOR**");
 			    	imprimirAST(((NodoFor)raiz).getAsig());
@@ -81,53 +121,55 @@ public class Util {
 		    		System.out.println("**Cuerpo for");
 		     		imprimirAST(((NodoFor)raiz).getCuerpo());
 		    }
+		    else if (raiz instanceof NodoPrograma){
+		    	printSpaces();
+		    	System.out.println("**lista de funciones**");
+		    	imprimirAST(((NodoPrograma)raiz).getLista());
+		    	printSpaces();
+		    	System.out.println("**cuerpo del programa**");
+		    	imprimirAST(((NodoPrograma)raiz).getCuerpo());	
+		    	
+		    }
 		    
 		    else if (raiz instanceof NodoVector){
 		    	printSpaces();
 		    	System.out.println("**VECTOR de "+((NodoVector)raiz).getVariable()+"[]");
 		    	imprimirAST(((NodoVector)raiz).getNumero());
 		      }
-		    else if(raiz instanceof NodoLLamada)
-		    {
+		    
+		    else if (raiz instanceof  NodoProcedimiento){
 		    	printSpaces();
-		    	System.out.println("**Parametros de LLamada**");
-		    	imprimirAST(((NodoLLamada)raiz).getParametros());
-		    	printSpaces();
-		    }
-		    else if(raiz instanceof NodoProcedimiento){
-		    	printSpaces();
-	    		System.out.println("**Operacion de Procedimiento**");
+		    	System.out.println("**Operacion de Procedimiento **");
 		    	imprimirAST(((NodoProcedimiento)raiz).getOperacion());
 		    	printSpaces();
-	    		System.out.println("**Cuerpo Procedimiento**");
-	    		imprimirAST(((NodoProcedimiento)raiz).getCuerpo());
-	    		printSpaces();
+		    	System.out.println("**Cuerpo de Procedimiento**");
+		    	imprimirAST(((NodoProcedimiento)raiz).getCuerpo());
 		    }
-		    else if (raiz instanceof NodoPrograma){
-		    	
+		    
+		    else if (raiz instanceof  NodoFuncion){
 		    	printSpaces();
-	    		System.out.println("**Operacion Programa**");
-		    	imprimirAST(((NodoPrograma)raiz).getOperacion());
+		    	System.out.println("**Argumentos de la Funcion**");
+		    	imprimirAST(((NodoFuncion)raiz).getArgumentos());
 		    	printSpaces();
-	    		System.out.println("**Cuerpo Programa**");
-	    		imprimirAST(((NodoPrograma)raiz).getCuerpo());
-	    		printSpaces();		    	
+		    	System.out.println("**Cuerpo de Funcion**");
+		    	imprimirAST(((NodoFuncion)raiz).getBody());
 		    }
-   else if (raiz instanceof NodoFuncion){
-		    	
+		    else if (raiz instanceof  NodoLLamada)
+		    {
 		    	printSpaces();
-	    		System.out.println("**Operacion Funcion**");
-		    	imprimirAST(((NodoFuncion)raiz).getOperacion());
-		    	printSpaces();
-	    		System.out.println("**Cuerpo Funcion**");
-	    		imprimirAST(((NodoFuncion)raiz).getBody());
-	    		printSpaces();		    	
+		    	System.out.println("Parametros de LLamada");
+		    	imprimirAST(((NodoLLamada)raiz).getParametros());
 		    }
- 
+		    {
+		    	printSpaces();
+		    	System.out.println("Funcion");
+		    }
 		    raiz = raiz.getHermanoDerecha();
 		  }
 		  sangria-=2;
-		}
+	}
+	
+		   
 
 /* Imprime espacios con sangria */
 static void printSpaces()
@@ -143,14 +185,15 @@ static void imprimirNodo( NodoBase raiz )
 		||	raiz instanceof NodoLeer
 		||	raiz instanceof NodoEscribir 
 		||  raiz instanceof NodoFor)
-		{
+	{
 		System.out.println("palabra reservada: "+ raiz.getClass().getName());
 	}
 	
 	if(	raiz instanceof NodoAsignacion )
 		System.out.println(":=");
 	
-	if(	raiz instanceof NodoOperacion ){
+	if(	raiz instanceof NodoOperacion )
+	{
 		tipoOp sel=((NodoOperacion) raiz).getOperacion();
 		if(sel==tipoOp.menor)
 			System.out.println("<"); 
