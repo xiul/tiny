@@ -152,7 +152,6 @@ static void imprimirNodo( NodoBase raiz )
 		System.out.println("Variable "+((NodoVector)raiz).getVariable());
 	}
 
-
 }
 
 
